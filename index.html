@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三花人生規劃</title>
+<style>
+:root{--bg:#f7f4ec;--paper:#fffdf8;--ink:#2e2b26;--muted:#8a8478;--line:#ece6d6;--border:#e2dccb;--accent:#e48a45;--accent-ink:#fff;--soft:#f6e9d9;--danger:#cf4b3f;--ok:#4f9a64;--h0:#ece7da;--h1:#f7dcc0;--h2:#f1b985;--h3:#e58f4b;--h4:#c76a24;
+--hand:"Segoe Print","Bradley Hand","Marker Felt","Noto Sans TC","PingFang TC","Microsoft JhengHei",cursive;
+--sans:-apple-system,"Segoe UI","Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif}
+[data-theme=dark]{--bg:#1c1b19;--paper:#262522;--ink:#ece7dc;--muted:#9b9486;--line:#242321;--border:#3a3732;--accent:#eb9a55;--accent-ink:#1c1b19;--soft:#3a3025;--danger:#e8695d;--ok:#6cb883;--h0:#34322e;--h1:#5a4630;--h2:#85582c;--h3:#b8742f;--h4:#eba150}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--sans);color:var(--ink);background-color:var(--bg);background-image:linear-gradient(var(--line) 1px,transparent 1px);background-size:100% 28px;line-height:1.5;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+input,select,textarea{font:inherit;color:inherit;background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:8px 10px;max-width:100%}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+h2,h3{margin:0 0 10px;font-weight:600}
+.hand{font-family:var(--hand)}
+.top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 20px;background:var(--paper);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.brand{font-size:20px;white-space:nowrap}
+.top nav{display:flex;gap:4px;flex:1;flex-wrap:wrap}
+.top nav button{background:none;border:0;padding:8px 14px;border-radius:999px;color:var(--muted)}
+.top nav button.on{background:var(--soft);color:var(--ink);font-weight:600}
+.quick{display:flex;align-items:center;gap:8px}
+.coin{font-weight:600;padding:4px 10px;background:var(--soft);border-radius:999px}
+.icon{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:6px 10px;min-width:38px}
+main{max-width:1100px;margin:0 auto;padding:20px}
+.card{background:var(--paper);border:1px solid var(--border);border-radius:16px;padding:18px;margin-bottom:16px}
+.home{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}
+.home aside .card:last-child{margin-bottom:16px}
+@media(max-width:820px){.home{grid-template-columns:1fr}}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;border-radius:10px;padding:9px 16px;font-weight:600}
+.btn.ghost{background:none;color:var(--ink);border:1px solid var(--border);font-weight:400}
+.btn.danger{background:none;color:var(--danger);border:1px solid var(--danger)}
+.btn.sm{padding:5px 11px;font-size:14px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.seg button{background:none;border:0;padding:6px 12px}
+.seg button.on{background:var(--soft);font-weight:600}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;background:var(--soft);color:var(--ink);white-space:nowrap}
+.muted{color:var(--muted)}
+small{color:var(--muted)}
+.hm{width:100%;height:auto;display:block;margin:6px 0}
+.hm text{fill:var(--muted);font-size:10px;font-family:var(--sans)}
+.hm rect{cursor:pointer}
+.hm rect.today{stroke:var(--ink);stroke-width:1.5}
+.h0{fill:var(--h0)}.h1{fill:var(--h1)}.h2{fill:var(--h2)}.h3{fill:var(--h3)}.h4{fill:var(--h4)}
+.legend{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--muted);justify-content:flex-end}
+.legend i{width:13px;height:13px;border-radius:3px;display:inline-block}
+.legend i.h0{background:var(--h0)}.legend i.h1{background:var(--h1)}.legend i.h2{background:var(--h2)}.legend i.h3{background:var(--h3)}.legend i.h4{background:var(--h4)}
+.stats3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.stats3>div,.tile{background:var(--bg);border-radius:12px;padding:10px 12px;text-align:center}
+.stats3 b,.tile b{display:block;font-size:24px;font-family:var(--hand)}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:700px){.tiles{grid-template-columns:repeat(2,1fr)}}
+.bar{height:10px;background:var(--h0);border-radius:999px;overflow:hidden;flex:1;min-width:60px}
+.bar>i{display:block;height:100%;background:var(--dc,var(--accent));border-radius:999px;transition:width .3s}
+.bar.low>i{background:var(--danger)}
+.pet{text-align:center;position:relative}
+.bubble{display:inline-block;background:var(--bg);border:1px solid var(--border);padding:6px 14px;border-radius:14px;font-size:14px;margin-bottom:6px;max-width:100%}
+.catwrap{cursor:pointer;margin:0 auto;max-width:260px;user-select:none;-webkit-tap-highlight-color:transparent}
+.pet.big .catwrap{max-width:340px}
+.cat{width:100%;height:auto;display:block;overflow:visible}
+.breathe{transform-box:fill-box;transform-origin:50% 100%;animation:breathe 4s ease-in-out infinite}
+.catwrap.sleep .breathe{animation-duration:6s}
+.tail{transform-box:fill-box;transform-origin:0 100%;animation:wag 5s ease-in-out infinite}
+.catwrap.bounce{animation:bounce .6s}
+.zz{font-size:18px;fill:var(--muted);animation:zz 3s ease-in-out infinite}
+.qmark{animation:zz 3s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.015,.985)}}
+@keyframes wag{50%{transform:rotate(6deg)}}
+@keyframes zz{50%{transform:translateY(-6px);opacity:.5}}
+@keyframes bounce{30%{transform:translateY(-14px) scale(1.03)}60%{transform:translateY(0) scale(.98,1.02)}}
+.pname{margin:4px 0 8px;font-size:18px}
+.meter{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:13px;text-align:left}
+.meter span:first-child{width:62px;flex:none;color:var(--muted)}
+.meter span:last-child{min-width:64px;text-align:right}
+.q{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border)}
+.q:last-of-type{border-bottom:0}
+.ck{width:24px;height:24px;border-radius:50%;border:2px solid var(--border);background:var(--paper);flex:none;padding:0;display:grid;place-items:center;font-size:14px;line-height:1;color:transparent}
+.ck.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.q.done .qt,.task.done .qt{text-decoration:line-through;color:var(--muted)}
+.qt{flex:1;min-width:0;word-break:break-word}
+.domhead{display:flex;align-items:center;gap:10px;margin:22px 0 10px}
+.domhead h3{margin:0;font-size:18px}
+.goal{background:var(--paper);border:1px solid var(--border);border-left:5px solid var(--dc);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.ghead{cursor:pointer}
+.gtitle{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-weight:600}
+.gprog{display:flex;align-items:center;gap:10px;margin-top:8px}
+.gprog b{width:44px;text-align:right}
+.gbody{margin-top:12px;border-top:1px dashed var(--border);padding-top:12px}
+.task{display:flex;align-items:center;gap:10px;padding:6px 0}
+.due{font-size:12px;color:var(--muted);white-space:nowrap}
+.due.soon{color:#c58a1d}.due.late{color:var(--danger);font-weight:600}
+.x{background:none;border:0;color:var(--muted);padding:2px 8px;font-size:18px}
+.inl{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.inl input[type=text]{flex:1;min-width:140px}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.item{background:var(--bg);border-radius:14px;padding:12px;text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center}
+.item .em{font-size:34px}
+.item.lock{opacity:.55}
+.ach{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.ach div{background:var(--bg);border-radius:12px;padding:10px 12px;font-size:14px}
+.ach div.off{opacity:.4;filter:grayscale(1)}
+.chart{width:100%;height:auto;display:block}
+.chart text{fill:var(--muted);font-size:11px;font-family:var(--sans)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:820px){.two{grid-template-columns:1fr}}
+.banner{background:var(--soft);border-radius:14px;padding:14px 18px;margin-bottom:16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;z-index:40;padding:16px}
+.modal{background:var(--paper);border-radius:18px;padding:22px;width:100%;max-width:520px;max-height:90vh;overflow:auto;border:1px solid var(--border)}
+.modal label{display:block;margin:10px 0 4px;font-size:13px;color:var(--muted)}
+.modal input,.modal select,.modal textarea{width:100%}
+.modal .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.modal .acts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+.hide{display:none!important}
+.drow{display:grid;grid-template-columns:56px 1fr 52px auto auto;gap:6px;align-items:center;margin-bottom:8px}
+.drow input[type=color]{padding:2px;height:36px;width:52px}
+#toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;opacity:0;pointer-events:none;transition:.25s;z-index:70;max-width:90vw;text-align:center}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+.conf{position:fixed;top:-30px;font-size:22px;pointer-events:none;animation:fall 2.2s ease-in forwards;z-index:60}
+@keyframes fall{to{transform:translate(var(--dx),108vh) rotate(360deg);opacity:.8}}
+.tm{text-align:center}.tm.run{border-color:var(--accent);box-shadow:0 0 0 3px var(--soft)}
+.tclock{font-family:var(--hand);font-size:clamp(46px,9vw,84px);font-weight:600;letter-spacing:2px;margin:6px 0;font-variant-numeric:tabular-nums;line-height:1.1}
+.btn.big{padding:13px 26px;font-size:18px;border-radius:14px}
+@media(max-width:900px){.top{gap:8px;padding:10px 14px}.top nav{gap:0}.top nav button{padding:8px 9px;font-size:14px}.brand{font-size:17px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media(max-width:560px){main{padding:12px}.top{padding:10px 12px}.top nav button span{display:none}.drow{grid-template-columns:48px 1fr 48px auto}.drow .btn.danger{grid-column:1/-1}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="modal"></div>
+<div id="confirm"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<noscript>This app needs JavaScript.</noscript>
+<script>
+"use strict";
+/* ============ i18n ============ */
+const I18N={
+zh:{
+'app':'三花人生規劃','ok':'確定','nav.timer':'計時','tm.open':'開始計時','tm.today':'今天累計','tm.general':'一般學習','tm.deleted':'（已刪除的目標）','tm.start':'開始','tm.pause':'暫停','tm.resume':'繼續','tm.stop':'結束並儲存','tm.discard':'放棄這次計時','tm.subject':'科目（對應目標）','tm.hint':'計時中切換科目，會自動儲存前一段並繼續計時。','tm.awake':'計時時保持螢幕開啟','tm.bySubj':'今天各科目','tm.none':'今天還沒有計時紀錄。','tm.cap':'單次最多記錄 12 小時；關掉網頁，計時也會繼續。','tm.saved':'已記錄 {m} 分鐘！+{x} XP +{c} 🪙','tm.short':'這次不到 1 分鐘，沒有記錄。','tm.confirmDiscard':'放棄這次計時？這段時間不會被記錄。','tm.status.idle':'準備開始','tm.status.run':'學習中…','tm.status.pause':'已暫停','nav.home':'首頁','nav.goals':'目標','nav.stats':'統計','nav.cat':'小貓','nav.set':'設定',
+'hm.title':'學習熱力圖','hm.min':'學習時間','hm.tasks':'完成任務','less':'少','more':'多','streak':'連續天數',
+'wk.h':'近 7 天學習（小時）','wk.d':'近 7 天完成任務','logTime':'記錄學習時間',
+'today':'今天到期','daysLeft':'剩 {n} 天','overdue':'逾期 {n} 天','hmTip':'{d}：{m} 分鐘，完成 {k} 項',
+'wel':'還沒有任何目標。新增第一個目標，或載入範例資料來看看完整效果。','addGoal':'＋新增目標','sample':'載入範例資料',
+'q.title':'今日任務','q.none':'目前沒有待辦任務，到「目標」新增吧！','q.bonus':'全部完成可得 +15 🪙 +20 XP','q.got':'🎁 今日獎勵已領取！',
+'up.title':'即將到期','up.none':'還沒有設定截止日的項目',
+'hz.life':'人生（5 年以上）','hz.year':'年度','hz.month':'本月','hz.week':'本週','all':'全部',
+'manageDom':'管理領域','noGoals':'這個範圍還沒有目標。','tasksOf':'{a}/{b} 項任務','manual':'手動',
+'mode.tasks':'依任務完成數','mode.value':'依數值','mode.manual':'手動輸入',
+'addTaskPh':'新增任務…','add':'新增','edit':'編輯','del':'刪除','save':'儲存','cancel':'取消','update':'更新',
+'noTasks':'還沒有任務','confirmDel':'確定要刪除嗎？此動作無法復原。',
+'g.new':'新增目標','g.edit':'編輯目標','g.title':'目標名稱','g.domain':'人生領域','g.hz':'時間範圍','g.due':'截止日（可留空）','g.mode':'進度計算方式','g.target':'目標數值','g.unit':'單位','g.current':'目前數值','g.note':'備註','g.manualP':'目前進度 %',
+'valLabel':'目前數值','done100':'已完成','g.needTitle':'請先輸入目標名稱。','g.needTarget':'請填寫大於 0 的目標數值。','g.manualMax':'手動進度只能填 0 到 100 的百分比。要記錄頁數、小時這類數字，請改選「依數值」。','g.hint.tasks':'在目標裡新增任務，勾完就自動計算進度。','g.hint.value':'適合頁數、小時、金額等數字，例如目標 157 頁。','g.hint.manual':'自己填 0–100 的百分比。要記錄頁數等數字，請選「依數值」。',
+'dom.health':'健康','dom.career':'職涯','dom.money':'財務','dom.learn':'學習','dom.social':'人際','dom.hobby':'興趣','dom.mind':'心靈',
+'dom.title':'管理人生領域','dom.new':'新增領域','dom.hasGoals':'這個領域還有目標，請先刪除或移走。',
+'day.title':'學習紀錄','day.min':'當天學習分鐘數','day.note':'當天心得（可留空）','day.done':'當天完成的任務','day.none':'沒有完成的任務','day.future':'還沒到的日子無法記錄。',
+'st.done':'累計完成任務','st.hours':'累計學習時數','st.best':'最長連續天數','st.rate':'目標平均完成度',
+'ch.title':'學習時數趨勢','ch.week':'每週','ch.month':'每月','radar.title':'人生領域平衡度','radar.need':'至少需要 3 個領域才能畫出雷達圖。','radar.hint':'以各領域目標的平均完成度計算',
+'cat.food':'食物','cat.decor':'小物','cat.rewards':'自訂獎勵','cat.ach':'成就','cat.name':'貓咪名字',
+'bar.full':'飽食度','bar.xp':'經驗值','coins':'金幣','lv':'Lv.{n}',
+'hungerIn':'約 {n} 天後會餓扁','graceLeft':'再不餵食，{n} 小時後會離家出走！',
+'food.kibble':'飼料','food.fish':'小魚乾','food.can':'罐罐',
+'decor.mat':'小被被','decor.box':'紙箱','decor.yarn':'毛線球','decor.plant':'盆栽','decor.bucket':'小冰桶','decor.house':'小屋','decor.bed':'貓窩','decor.scratch':'貓抓板','food.days':'約撐 {n} 天',
+'feedBtn':'購買並餵食','buy':'購買','owned':'已擁有','equip':'裝上','unequip':'拿下','needLv':'Lv.{n} 解鎖',
+'fed':'喵～好好吃！','full':'貓咪還很飽，晚點再餵吧。','nocoin':'金幣不夠，先去完成任務吧！','awayNoFeed':'貓咪不在家，沒辦法餵食。',
+'lvup':'🎉 升級到 Lv.{n}！','unlock':'，解鎖 {x}',
+'say.happy':'呼嚕嚕～|今天也一起加油喵|肚子飽飽，心情好好|摸摸我 😽','say.idle':'喵？你今天做了什麼呢|有點想吃小魚乾…|在旁邊陪你喔','say.hungry':'肚子好餓喵…|想吃罐罐…|拜託去完成任務賺金幣嘛','say.sad':'（坐在門口，默默看著你）|再不餵我，我就要走了喵…','say.sleep':'zzZ…|（睡得好熟）|（翻身）',
+'away.title':'{name} 離家出走了…','away.desc':'牠留下一個空空的貓窩。完成任務、賺到金幣，貼出尋貓啟事就能把牠找回來。','away.tasks':'離家後完成任務：{a}/{b}','away.cost':'尋貓啟事費用：{n} 🪙','away.btn':'貼尋貓啟事','away.need':'還沒達成條件，繼續完成任務並存金幣吧。','away.back':'🐱 {name} 回家了！這次別再讓牠餓肚子喔。','away.homeSay':'{name} 離家出走了，牠還好嗎…',
+'rw.name':'獎勵名稱','rw.cost':'金幣','rw.new':'新增獎勵','rw.redeem':'兌換','rw.done':'已兌換：{x}，好好享受！','rw.hist':'兌換紀錄','rw.none':'還沒有兌換紀錄',
+'ach.first':'第一步|完成第一個任務','ach.t10':'小有成就|累計完成 10 個任務','ach.t50':'任務達人|累計完成 50 個任務','ach.s3':'三日不輟|連續 3 天有紀錄','ach.s7':'一週不輟|連續 7 天有紀錄','ach.s30':'習慣養成|連續 30 天有紀錄','ach.h10':'十小時|累計學習 10 小時','ach.h100':'百小時|累計學習 100 小時','ach.l5':'茁壯中|貓咪升到 Lv.5','ach.l10':'圓滾滾|貓咪升到 Lv.10','ach.goal':'達標！|完成一個目標','ach.feed':'好鏟屎官|第一次餵貓咪','ach.rescue':'尋貓成功|把離家的貓咪找回來','ach.quest':'今日完成|完成一次今日任務全部',
+'set.lang':'語言','set.theme':'外觀','th.light':'淺色','th.dark':'深色','th.auto':'跟隨系統','set.data':'資料管理','set.export':'匯出 JSON 備份','set.import':'匯入備份','set.sample':'載入範例資料','set.clear':'清除全部資料',
+'set.note':'所有資料只儲存在這個瀏覽器的 localStorage。清除瀏覽器資料前，請先匯出備份。',
+'confirmSample':'會把範例目標加入現有資料，要繼續嗎？','confirmClear':'將刪除所有目標、任務、紀錄與貓咪資料，無法復原。確定嗎？','confirmImport':'匯入會取代目前所有資料，確定嗎？',
+'importErr':'檔案格式不正確。','imported':'匯入完成。','saved':'已儲存','saveErr':'無法寫入 localStorage，資料可能不會保留。',
+'goalDone':'🎊 目標完成！+30 XP +20 🪙','taskDone':'+10 XP +5 🪙','questDone':'🎁 今日任務全部完成！+20 XP +15 🪙','valUp':'+5 XP +3 🪙'
+},
+en:{
+'app':'Calico Life Planner','ok':'OK','nav.timer':'Timer','tm.open':'Start timer','tm.today':'Studied today','tm.general':'General study','tm.deleted':'(deleted goal)','tm.start':'Start','tm.pause':'Pause','tm.resume':'Resume','tm.stop':'Finish and save','tm.discard':'Discard this session','tm.subject':'Subject (linked goal)','tm.hint':'Switching subject while timing saves the previous part and keeps going.','tm.awake':'Keep screen on while timing','tm.bySubj':'Today by subject','tm.none':'No timer records today.','tm.cap':'One session records at most 12 hours. The timer keeps running if you close the page.','tm.saved':'Logged {m} min! +{x} XP +{c} 🪙','tm.short':'Under 1 minute, nothing logged.','tm.confirmDiscard':'Discard this session? The time will not be logged.','tm.status.idle':'Ready','tm.status.run':'Studying…','tm.status.pause':'Paused','nav.home':'Home','nav.goals':'Goals','nav.stats':'Stats','nav.cat':'Cat','nav.set':'Settings',
+'hm.title':'Study heatmap','hm.min':'Study time','hm.tasks':'Tasks done','less':'Less','more':'More','streak':'Day streak',
+'wk.h':'Last 7 days (hours)','wk.d':'Tasks done, last 7 days','logTime':'Log study time',
+'today':'Due today','daysLeft':'{n} days left','overdue':'{n} days overdue','hmTip':'{d}: {m} min, {k} tasks done',
+'wel':'No goals yet. Add your first goal, or load the sample data to see everything in action.','addGoal':'+ New goal','sample':'Load sample data',
+'q.title':"Today's quests",'q.none':'No open tasks. Add some under Goals!','q.bonus':'Finish all for +15 🪙 +20 XP','q.got':'🎁 Daily bonus claimed!',
+'up.title':'Coming up','up.none':'Nothing with a due date yet',
+'hz.life':'Life (5+ years)','hz.year':'This year','hz.month':'This month','hz.week':'This week','all':'All',
+'manageDom':'Manage areas','noGoals':'No goals in this range yet.','tasksOf':'{a}/{b} tasks','manual':'Manual',
+'mode.tasks':'By tasks completed','mode.value':'By number','mode.manual':'Manual %',
+'addTaskPh':'Add a task…','add':'Add','edit':'Edit','del':'Delete','save':'Save','cancel':'Cancel','update':'Update',
+'noTasks':'No tasks yet','confirmDel':'Delete this? This cannot be undone.',
+'g.new':'New goal','g.edit':'Edit goal','g.title':'Goal','g.domain':'Life area','g.hz':'Time horizon','g.due':'Due date (optional)','g.mode':'How to measure progress','g.target':'Target value','g.unit':'Unit','g.current':'Current value','g.note':'Notes','g.manualP':'Progress %',
+'valLabel':'Current value','done100':'Done','g.needTitle':'Please enter a goal name first.','g.needTarget':'Enter a target value greater than 0.','g.manualMax':'Manual progress is a percentage from 0 to 100. To track pages or hours, switch to "By number".','g.hint.tasks':'Add tasks to this goal; progress follows what you tick off.','g.hint.value':'For pages, hours, money and so on, e.g. a target of 157 pages.','g.hint.manual':'Type a 0–100 percentage. To track pages or similar numbers, pick "By number".',
+'dom.health':'Health','dom.career':'Career','dom.money':'Money','dom.learn':'Learning','dom.social':'Social','dom.hobby':'Hobbies','dom.mind':'Mind',
+'dom.title':'Manage life areas','dom.new':'New area','dom.hasGoals':'This area still has goals. Delete or move them first.',
+'day.title':'Study log','day.min':'Minutes studied that day','day.note':'Notes (optional)','day.done':'Tasks completed that day','day.none':'No tasks completed','day.future':'You cannot log future days.',
+'st.done':'Tasks completed','st.hours':'Total study hours','st.best':'Best streak','st.rate':'Average goal progress',
+'ch.title':'Study hours trend','ch.week':'Weekly','ch.month':'Monthly','radar.title':'Life balance','radar.need':'You need at least 3 areas to draw the radar.','radar.hint':'Average progress of goals in each area',
+'cat.food':'Food','cat.decor':'Decor','cat.rewards':'Custom rewards','cat.ach':'Achievements','cat.name':'Cat name',
+'bar.full':'Fullness','bar.xp':'XP','coins':'Coins','lv':'Lv.{n}',
+'hungerIn':'Starving in about {n} days','graceLeft':'Feed me or I leave in {n} hours!',
+'food.kibble':'Kibble','food.fish':'Dried fish','food.can':'Canned food',
+'decor.mat':'Blanket','decor.box':'Cardboard box','decor.yarn':'Yarn ball','decor.plant':'Plant','decor.bucket':'Ice bucket','decor.house':'Cat house','decor.bed':'Cat bed','decor.scratch':'Scratching board','food.days':'lasts ~{n} days',
+'feedBtn':'Buy & feed','buy':'Buy','owned':'Owned','equip':'Equip','unequip':'Remove','needLv':'Unlocks at Lv.{n}',
+'fed':'Meow~ so yummy!','full':"I'm still full. Maybe later.",'nocoin':'Not enough coins. Go finish some tasks!','awayNoFeed':'Your cat is away, so you cannot feed it.',
+'lvup':'🎉 Level up! Lv.{n}','unlock':', unlocked {x}',
+'say.happy':'Purr~|Let\'s do our best today|Full tummy, happy cat|Pet me 😽','say.idle':'Meow? What did you do today?|Kind of want dried fish…|Keeping you company','say.hungry':'So hungry meow…|Want canned food…|Please finish tasks and earn coins','say.sad':'(sits by the door, watching you)|Feed me or I\'m leaving meow…','say.sleep':'zzZ…|(sleeping soundly)|(rolls over)',
+'away.title':'{name} ran away…','away.desc':'Only an empty bed is left. Finish tasks, earn coins and post a lost-cat notice to bring them home.','away.tasks':'Tasks done since leaving: {a}/{b}','away.cost':'Notice cost: {n} 🪙','away.btn':'Post lost-cat notice','away.need':'Not yet. Keep finishing tasks and saving coins.','away.back':'🐱 {name} is home! Don\'t let them go hungry again.','away.homeSay':'{name} ran away. I hope they are okay…',
+'rw.name':'Reward','rw.cost':'Coins','rw.new':'Add reward','rw.redeem':'Redeem','rw.done':'Redeemed: {x}. Enjoy!','rw.hist':'History','rw.none':'Nothing redeemed yet',
+'ach.first':'First step|Complete your first task','ach.t10':'Getting somewhere|Complete 10 tasks','ach.t50':'Task master|Complete 50 tasks','ach.s3':'Three in a row|3-day streak','ach.s7':'Full week|7-day streak','ach.s30':'Habit formed|30-day streak','ach.h10':'Ten hours|Study 10 hours in total','ach.h100':'Hundred hours|Study 100 hours in total','ach.l5':'Growing up|Cat reaches Lv.5','ach.l10':'Perfectly round|Cat reaches Lv.10','ach.goal':'Goal reached!|Complete a goal','ach.feed':'Good human|Feed your cat for the first time','ach.rescue':'Cat found|Bring a runaway cat home','ach.quest':'Daily clear|Finish all daily quests once',
+'set.lang':'Language','set.theme':'Appearance','th.light':'Light','th.dark':'Dark','th.auto':'System','set.data':'Data','set.export':'Export JSON backup','set.import':'Import backup','set.sample':'Load sample data','set.clear':'Erase all data',
+'set.note':'All data lives only in this browser\'s localStorage. Export a backup before clearing browser data.',
+'confirmSample':'Sample goals will be added to your data. Continue?','confirmClear':'This deletes all goals, tasks, logs and cat data. It cannot be undone. Continue?','confirmImport':'Importing replaces all current data. Continue?',
+'importErr':'That file is not a valid backup.','imported':'Import complete.','saved':'Saved','saveErr':'Cannot write to localStorage. Data may not persist.',
+'goalDone':'🎊 Goal complete! +30 XP +20 🪙','taskDone':'+10 XP +5 🪙','questDone':'🎁 All daily quests done! +20 XP +15 🪙','valUp':'+5 XP +3 🪙'
+}};
+
+/* ============ helpers ============ */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-3);
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const parseD=s=>{const [a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
+const addDays=(d,n)=>{const x=new Date(d);x.setDate(x.getDate()+n);return x};
+const todayStr=()=>ymd(new Date());
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const KEY='calico-life-planner-v1';
+const DOMS=[['health','💪','#5b9a6f'],['career','💼','#4f7fb8'],['money','💰','#d4a22f'],['learn','📚','#e48a45'],['social','🤝','#c96b8a'],['hobby','🎨','#8a6fc0'],['mind','🧘','#4aa3a2']];
+const FOODS=[{id:'kibble',icon:'🥣',cost:10,gain:15},{id:'fish',icon:'🐟',cost:30,gain:45},{id:'can',icon:'🥫',cost:60,gain:100}];
+const DECOR=[{id:'yarn',icon:'🧶',cost:40,lvl:2},{id:'scratch',icon:'🪵',cost:80,lvl:3},{id:'mat',icon:'🛏️',cost:60,lvl:4},{id:'bed',icon:'🧺',cost:120,lvl:5},{id:'box',icon:'📦',cost:100,lvl:6},{id:'bucket',icon:'🧊',cost:90,lvl:7},{id:'plant',icon:'🪴',cost:80,lvl:8},{id:'house',icon:'🏠',cost:200,lvl:10}];
+const HZ=['life','year','month','week'];
+const RATE=100/120;            // fullness per hour (empty in 5 days)
+const GRACE_H=48;              // grace period in hours
+const RESCUE_TASKS=3,RESCUE_COST=50;
+
+/* ============ state ============ */
+function newPet(z){return{name:z?'花花':'Mochi',xp:0,coins:0,fullness:80,lastTick:Date.now(),grace:null,away:false,awayTasks:0,owned:[],equipped:[]}}
+function defaultState(){
+  const lang=(navigator.language||'').toLowerCase().startsWith('zh')?'zh':'en',z=lang==='zh';
+  return{v:1,settings:{lang,theme:'auto',keepAwake:false},timer:{state:'idle',since:0,acc:0,subj:''},
+    domains:DOMS.map(([k,i,c])=>({id:'dom_'+k,key:k,icon:i,color:c})),
+    goals:[],tasks:[],logs:{},
+    rewards:[{id:uid(),name:z?'喝一杯手搖飲':'Bubble tea',cost:80,icon:'🧋'},{id:uid(),name:z?'看一集喜歡的影集':'Watch an episode',cost:50,icon:'📺'}],
+    claims:[],pet:newPet(z),ach:{},daily:{date:'',ids:[],bonus:false},
+    stats:{fed:0,rescued:0,questDays:0,valDay:'',valCnt:0}};
+}
+function migrate(o){
+  const d=defaultState(),r={...d,...o};
+  r.settings={...d.settings,...(o.settings||{})};
+  r.pet={...d.pet,...(o.pet||{})};
+  r.timer={...d.timer,...(o.timer||{})};
+  r.stats={...d.stats,...(o.stats||{})};
+  r.daily=o.daily||d.daily;
+  for(const k of ['domains','goals','tasks','rewards','claims'])if(!Array.isArray(r[k]))r[k]=d[k];
+  if(!r.logs||typeof r.logs!=='object')r.logs={};
+  if(!r.ach||typeof r.ach!=='object')r.ach={};
+  r.v=1;return r;
+}
+let S=(()=>{try{const r=localStorage.getItem(KEY);if(r)return migrate(JSON.parse(r))}catch(e){}return defaultState()})();
+let saveFailed=false;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));saveFailed=false}catch(e){if(!saveFailed)toast(t('saveErr'));saveFailed=true}}
+const ui={view:'home',hm:'min',filter:'all',chart:'week',open:{}};
+let ACT={};
+
+const t=(k,p)=>{let s=(I18N[S.settings.lang]||I18N.zh)[k];if(s==null)s=I18N.zh[k]??k;if(p)for(const q in p)s=s.split('{'+q+'}').join(p[q]);return s};
+const loc=()=>S.settings.lang==='zh'?'zh-TW':'en-US';
+const dname=d=>d.name||(d.key?t('dom.'+d.key):'?');
+const fmt=n=>Number(n).toLocaleString(loc());
+const fmtDate=s=>parseD(s).toLocaleDateString(loc(),{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+
+/* ============ theme ============ */
+const mq=window.matchMedia?matchMedia('(prefers-color-scheme: dark)'):{matches:false};
+function applyTheme(){const th=S.settings.theme,dark=th==='dark'||(th==='auto'&&mq.matches);document.documentElement.dataset.theme=dark?'dark':'light';document.documentElement.lang=S.settings.lang==='zh'?'zh-Hant':'en'}
+if(mq.addEventListener)mq.addEventListener('change',()=>{if(S.settings.theme==='auto')applyTheme()});
+
+/* ============ toast / fx ============ */
+let toastT;
+function toast(m){const el=$('#toast');el.textContent=m;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),2600)}
+function burst(em=['🎉','✨','🐟','⭐','💛']){
+  if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  for(let i=0;i<22;i++){const s=document.createElement('span');s.className='conf';s.textContent=em[i%em.length];s.style.left=(8+Math.random()*84)+'vw';s.style.setProperty('--dx',(Math.random()*120-60)+'px');s.style.animationDelay=(Math.random()*.3)+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),2700)}
+}
+
+/* ============ game logic ============ */
+const level=xp=>Math.floor(Math.sqrt(Math.max(0,xp)/40))+1;
+const xpFor=l=>40*(l-1)*(l-1);
+function award(xp,coins){
+  const p=S.pet,b=level(p.xp);p.xp+=xp;p.coins+=coins;const a=level(p.xp);
+  if(a>b){const u=DECOR.filter(d=>d.lvl>b&&d.lvl<=a).map(d=>t('decor.'+d.id)).join('、');toast(t('lvup',{n:a})+(u?t('unlock',{x:u}):''));burst()}
+}
+function tick(){
+  const p=S.pet,now=Date.now();
+  if(p.away){p.lastTick=now;return}
+  const hrs=Math.max(0,(now-p.lastTick)/36e5);
+  if(p.grace==null){
+    const need=p.fullness/RATE;
+    if(hrs<need)p.fullness-=hrs*RATE;
+    else{p.fullness=0;p.grace=p.lastTick+need*36e5}
+  }
+  p.lastTick=now;
+  if(p.grace!=null&&now-p.grace>=GRACE_H*36e5){p.away=true;p.awayTasks=0;p.grace=null}
+}
+function mood(){
+  const p=S.pet;if(p.away)return'away';if(p.grace!=null)return'sad';if(p.fullness<30)return'hungry';
+  const h=new Date().getHours();if(h>=23||h<7)return'sleep';return p.fullness>=60?'happy':'idle';
+}
+function prog(g){
+  if(g.mode==='tasks'){const ts=S.tasks.filter(x=>x.goalId===g.id);return ts.length?Math.round(ts.filter(x=>x.done).length/ts.length*100):0}
+  if(g.mode==='value')return g.target>0?Math.max(0,Math.min(100,Math.round(g.current/g.target*100))):0;
+  return Math.max(0,Math.min(100,Math.round(+g.manual||0)));
+}
+function progText(g){
+  if(g.mode==='tasks'){const ts=S.tasks.filter(x=>x.goalId===g.id);return t('tasksOf',{a:ts.filter(x=>x.done).length,b:ts.length})}
+  if(g.mode==='value')return fmt(g.current)+' / '+fmt(g.target)+' '+esc(g.unit||'');
+  return t('manual');
+}
+function checkGoalDone(id){
+  const g=S.goals.find(x=>x.id===id);if(!g)return;
+  if(prog(g)>=100&&!g.rewarded){g.rewarded=true;award(30,20);toast(t('goalDone'));burst()}
+}
+function actMap(){
+  const m={};
+  for(const [d,l] of Object.entries(S.logs))if(l&&l.min>0)(m[d]=m[d]||{min:0,done:0}).min=l.min;
+  for(const k of S.tasks)if(k.done&&k.doneDate)(m[k.doneDate]=m[k.doneDate]||{min:0,done:0}).done++;
+  return m;
+}
+function streak(m){let d=new Date();if(!m[ymd(d)])d=addDays(d,-1);let n=0;while(m[ymd(d)]){n++;d=addDays(d,-1)}return n}
+function bestStreak(m){
+  const ks=Object.keys(m).sort();let best=0,cur=0,prev=null;
+  for(const k of ks){cur=(prev&&ymd(addDays(parseD(prev),1))===k)?cur+1:1;best=Math.max(best,cur);prev=k}
+  return best;
+}
+function ensureDaily(){
+  const td=todayStr();
+  if(S.daily.date!==td)S.daily={date:td,ids:[],bonus:false};
+  const d=S.daily;d.ids=d.ids.filter(id=>S.tasks.some(x=>x.id===id));
+  if(d.ids.length<3){
+    const rank=h=>HZ.length-HZ.indexOf(h);
+    const cand=S.tasks.filter(x=>!x.done&&!d.ids.includes(x.id)&&S.goals.some(g=>g.id===x.goalId))
+      .sort((a,b)=>(a.due||'9999').localeCompare(b.due||'9999')||rank(S.goals.find(g=>g.id===b.goalId).horizon)-rank(S.goals.find(g=>g.id===a.goalId).horizon)||(a.created||0)-(b.created||0));
+    while(d.ids.length<3&&cand.length)d.ids.push(cand.shift().id);
+  }
+}
+function dailyCheck(){
+  const d=S.daily;
+  if(d.ids.length&&!d.bonus&&d.ids.every(id=>{const k=S.tasks.find(x=>x.id===id);return k&&k.done})){
+    d.bonus=true;S.stats.questDays++;award(20,15);toast(t('questDone'));burst();
+  }
+}
+const ACHS={first:c=>c.done>=1,t10:c=>c.done>=10,t50:c=>c.done>=50,s3:c=>c.best>=3,s7:c=>c.best>=7,s30:c=>c.best>=30,h10:c=>c.min>=600,h100:c=>c.min>=6000,l5:c=>c.lv>=5,l10:c=>c.lv>=10,goal:c=>c.goals>=1,feed:c=>S.stats.fed>=1,rescue:c=>S.stats.rescued>=1,quest:c=>S.stats.questDays>=1};
+function checkAch(){
+  const m=actMap();
+  const c={done:S.tasks.filter(x=>x.done).length,best:bestStreak(m),min:Object.values(S.logs).reduce((a,l)=>a+(+l.min||0),0),lv:level(S.pet.xp),goals:S.goals.filter(g=>g.rewarded).length};
+  for(const k in ACHS)if(!S.ach[k]&&ACHS[k](c)){S.ach[k]=Date.now();toast('🏅 '+t('ach.'+k).split('|')[0]);burst(['🏅','✨'])}
+}
+function after(){dailyCheck();checkAch();save();render()}
+
+/* ============ cat drawing (hand-drawn line-art style) ============ */
+const CAT={D:'#2b2b2b',W:'#fffdf8',OR:'#eda766',BR:'#8a5530',BK:'#4a3426',TL:'#f3c995',TD:'#5e3d26',PK:'#f4b4b0'};
+function bez(c,u){const m=1-u;return[0,1].map(i=>m*m*m*c[0][i]+3*m*m*u*c[1][i]+3*m*u*u*c[2][i]+u*u*u*c[3][i])}
+function tailSVG(cs,wOut,wIn){
+  const {D,TL,TD}=CAT,n=cs.length;
+  const pt=u=>{const i=Math.min(n-1,Math.floor(u*n));return bez(cs[i],u*n-i)};
+  const pathD=cs.map((c,i)=>(i?'':`M${c[0][0]} ${c[0][1]}`)+`C${c[1][0]} ${c[1][1]} ${c[2][0]} ${c[2][1]} ${c[3][0]} ${c[3][1]}`).join('');
+  const seg=(a,b)=>{let d='';for(let i=0;i<=10;i++){const q=pt(a+(b-a)*i/10);d+=(i?'L':'M')+q[0].toFixed(1)+' '+q[1].toFixed(1)}return d};
+  let s=`<path d="${pathD}" fill="none" stroke="${D}" stroke-width="${wOut}" stroke-linecap="round"/><path d="${pathD}" fill="none" stroke="${TL}" stroke-width="${wIn}" stroke-linecap="round"/>`;
+  for(const [a,b] of [[.2,.31],[.43,.54],[.66,.77]])s+=`<path d="${seg(a,b)}" fill="none" stroke="${TD}" stroke-width="${wIn}"/>`;
+  s+=`<path d="${seg(.87,1)}" fill="none" stroke="${TD}" stroke-width="${wIn}" stroke-linecap="round"/>`;
+  return s;
+}
+function catHead(x,y,k,rot,m,sid){
+  const {D,W,OR,BR,BK,PK}=CAT;
+  const st=`stroke="${D}" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"`;
+  const thin=`fill="none" stroke="${D}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"`;
+  const hp='M-52 6C-54-22-30-38 0-38C30-38 54-22 52 6C52 30 30 42 0 42C-30 42-52 30-52 6Z';
+  let e=`<g transform="translate(${x} ${y}) rotate(${rot}) scale(${k})"><defs><clipPath id="ch${sid}"><path d="${hp}"/></clipPath></defs>`;
+  e+=`<path d="M-47-12L-44-52L-12-34Z" fill="${OR}" ${st}/><path d="M-41-18L-40-42L-22-32Z" fill="${PK}"/><path d="M47-12L44-52L12-34Z" fill="${OR}" ${st}/><path d="M41-18L40-42L22-32Z" fill="${PK}"/>`;
+  e+=`<path d="${hp}" fill="${OR}"/><g clip-path="url(#ch${sid})"><circle cx="-36" cy="-24" r="22" fill="${BK}"/><path d="M0-37v11M-10-35l2 10M10-35l-2 10" fill="none" stroke="${BR}" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="0" cy="27" rx="26" ry="15" fill="${W}"/><ellipse cx="-27" cy="27" rx="17" ry="12" fill="${W}"/><ellipse cx="27" cy="27" rx="17" ry="12" fill="${W}"/></g><path d="${hp}" fill="none" ${st}/>`;
+  e+=`<ellipse cx="-34" cy="25" rx="8" ry="4.5" fill="#f4a4a4" opacity=".45"/><ellipse cx="34" cy="25" rx="8" ry="4.5" fill="#f4a4a4" opacity=".45"/>`;
+  const eye=cx=>`<circle cx="${cx}" cy="6" r="5.4" fill="#8fc460" stroke="${D}" stroke-width="1.8"/><circle cx="${cx}" cy="6" r="2.5" fill="${D}"/><circle cx="${cx+1.6}" cy="4.4" r="1.1" fill="#fff"/>`;
+  if(m==='happy')e+=`<path d="M-26 8q7-8 14 0M12 8q7-8 14 0" ${thin}/>`;
+  else if(m==='sleep')e+=`<path d="M-26 5q7 7 14 0M12 5q7 7 14 0" ${thin}/>`;
+  else{
+    e+=eye(-19)+eye(19);
+    if(m==='hungry'||m==='sad')e+=`<path d="M-28-6L-11-1M28-6L11-1" ${thin}/>`;
+    if(m==='sad')e+=`<path d="M-19 14q-3 6 0 8q3-2 0-8zM19 14q-3 6 0 8q3-2 0-8z" fill="#7fb7e6" stroke="${D}" stroke-width="1.5"/>`;
+  }
+  e+=`<path d="M-4 15h8l-4 5z" fill="#f08a8a" stroke="${D}" stroke-width="1.8" stroke-linejoin="round"/>`;
+  e+=(m==='hungry'||m==='sad')?`<ellipse cx="0" cy="29" rx="3.6" ry="4.6" fill="#a04a4a" stroke="${D}" stroke-width="2"/>`:`<path d="M0 20q-5 7-10 2M0 20q5 7 10 2" ${thin}/>`;
+  e+=`<path d="M-42 15l-24-5M-42 22l-24 4M42 15l24-5M42 22l24 4" fill="none" stroke="${D}" stroke-width="2" stroke-linecap="round"/>`;
+  // red collar + golden bell (always on)
+  e+=`<path d="M-30 38Q0 56 30 38" fill="none" stroke="${D}" stroke-width="11" stroke-linecap="round"/><path d="M-30 38Q0 56 30 38" fill="none" stroke="#d94a4a" stroke-width="6.5" stroke-linecap="round"/><circle cx="0" cy="56" r="8.5" fill="#f6c945" stroke="${D}" stroke-width="2.6"/><path d="M-5 57h10" stroke="${D}" stroke-width="1.8" stroke-linecap="round"/><circle cx="-2.6" cy="52.6" r="1.7" fill="#fff" opacity=".85"/>`;
+  return e+'</g>';
+}
+function yarnBall(x,y){const {D}=CAT;return`<circle cx="${x}" cy="${y}" r="14" fill="#f28b9b" stroke="${D}" stroke-width="2.6"/><path d="M${x-10} ${y-4}q10-8 20 2M${x-12} ${y+3}q12-8 22 4M${x-6} ${y+11}q10-4 16-6" fill="none" stroke="${D}" stroke-width="1.8" stroke-linecap="round"/>`}
+const ST=`stroke="#2b2b2b" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"`;
+const ST2=`stroke="#2b2b2b" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"`;
+function decHouse(cx,W){
+  const l=cx-W,r=cx+W;
+  return `<rect x="${l}" y="124" width="${2*W}" height="114" fill="#f6e6c8" ${ST}/>`
+   +`<circle cx="${l+20}" cy="172" r="11" fill="#cfe8f5" ${ST2}/><path d="M${l+20} 161v22M${l+9} 172h22" stroke="#2b2b2b" stroke-width="2"/>`
+   +`<circle cx="${r-20}" cy="172" r="11" fill="#cfe8f5" ${ST2}/><path d="M${r-20} 161v22M${r-31} 172h22" stroke="#2b2b2b" stroke-width="2"/>`
+   +`<path d="M${cx-38} 238V196Q${cx-38} 164 ${cx} 164Q${cx+38} 164 ${cx+38} 238Z" fill="#7a5238" ${ST2}/>`
+   +`<path d="M${l-12} 128L${cx} 60L${r+12} 128Z" fill="#e0725f" ${ST}/>`;
+}
+function decBedBack(cx,rx){
+  return `<ellipse cx="${cx}" cy="226" rx="${rx}" ry="20" fill="#d4a373" ${ST}/><ellipse cx="${cx}" cy="224" rx="${rx-16}" ry="12" fill="#f5e6cf" stroke="#2b2b2b" stroke-width="2"/>`;
+}
+function decBedFront(cx,rx){
+  const d=`M${cx-rx+8} 231Q${cx} 254 ${cx+rx-8} 231`;
+  return `<path d="${d}" fill="none" stroke="#2b2b2b" stroke-width="19" stroke-linecap="round"/><path d="${d}" fill="none" stroke="#d4a373" stroke-width="13" stroke-linecap="round"/>`;
+}
+function decScratch(cx){
+  const a=cx-126,b=cx-52;let s=`<path d="M${a+12} 243L${b+12} 243L${b} 257L${a} 257Z" fill="#dcbc8c" ${ST2}/><path d="M${a} 257L${b} 257V263H${a}Z" fill="#b98d5e" ${ST2}/>`;
+  for(let i=1;i<5;i++){const f=i/5;s+=`<path d="M${(a+12+(b-a)*f).toFixed(1)} 244L${(a+(b-a)*f).toFixed(1)} 256" stroke="#b58a55" stroke-width="2" stroke-linecap="round"/>`}
+  return s;
+}
+function decBucket(x,y){
+  return `<rect x="${x-12}" y="${y-36}" width="11" height="11" rx="2.5" fill="#e8f6ff" transform="rotate(-10 ${x-6} ${y-30})" ${ST2}/><rect x="${x+1}" y="${y-34}" width="11" height="11" rx="2.5" fill="#d6eefc" transform="rotate(12 ${x+6} ${y-28})" ${ST2}/>`
+   +`<path d="M${x-15} ${y-26}L${x-11} ${y}H${x+11}L${x+15} ${y-26}Z" fill="#8cc4e8" ${ST}/><path d="M${x-13} ${y-14}H${x+13}" stroke="#fff" stroke-width="2.4" opacity=".75" stroke-linecap="round"/>`;
+}
+function catSVG(m,sid){
+  const {D,W,OR,BR,BK}=CAT,p=S.pet;
+  const st=ST,st2=ST2;
+  if(m==='away')return`<svg viewBox="0 0 300 270" class="cat" role="img" aria-label="empty bed"><ellipse cx="150" cy="241" rx="104" ry="9" fill="rgba(0,0,0,.08)"/><path d="M52 214C50 188 96 176 150 176S250 188 248 214C246 236 200 242 150 242S54 236 52 214Z" fill="#ead8c0" ${st}/><path d="M84 212C90 200 120 196 150 196S210 200 216 212C210 224 180 228 150 228S90 224 84 212Z" fill="${W}" ${st}/><text x="150" y="150" text-anchor="middle" font-size="56" class="qmark" style="fill:var(--ink);font-family:var(--hand)">?</text></svg>`;
+  const lv=Math.min(level(p.xp),12),g=(lv-1)/11,eq=p.equipped||[],has=id=>eq.includes(id);
+  const k=.93+g*.17,bw=66+g*22,cx=150,sleep=m==='sleep';
+  let s=`<svg viewBox="0 0 300 270" class="cat" role="img" aria-label="calico cat"><ellipse cx="150" cy="241" rx="${Math.min(135,bw*k+38)}" ry="9" fill="rgba(0,0,0,.08)"/>`;
+  s+=`<g transform="translate(150 236) scale(${k}) translate(-150 -236)"><g class="breathe">`;
+  if(has('house'))s+=decHouse(cx,Math.min(118,bw*1.16+30));
+  if(has('mat'))s+=`<rect x="${cx-bw-30}" y="227" width="${2*bw+60}" height="14" rx="7" fill="#bcdbe8" ${st}/><path d="M${cx-bw-8} 234h${2*bw+16}" stroke="#fff" stroke-width="2" stroke-dasharray="3 8" opacity=".8"/>`;
+  if(has('bed'))s+=decBedBack(sleep?158:cx,sleep?122:Math.min(124,bw*1.16+30));
+  if(has('plant')){const px=sleep?36:Math.max(44,cx-bw-26);s+=`<ellipse cx="${px}" cy="196" rx="7" ry="17" fill="#8cc79a" ${st2}/><ellipse cx="${px-12}" cy="204" rx="6" ry="14" fill="#9fd3ab" ${st2} transform="rotate(-35 ${px-12} 204)"/><ellipse cx="${px+12}" cy="204" rx="6" ry="14" fill="#9fd3ab" ${st2} transform="rotate(35 ${px+12} 204)"/><path d="M${px-15} 237L${px-11} 213H${px+11}L${px+15} 237Z" fill="#e0976f" ${st2}/>`}
+  if(!sleep){
+    const bodyP=`M${cx-bw*.55} 120C${cx-bw*1.08} 150 ${cx-bw*1.16} 214 ${cx-bw*.72} 234Q${cx} 244 ${cx+bw*.72} 234C${cx+bw*1.16} 214 ${cx+bw*1.08} 150 ${cx+bw*.55} 120Z`;
+    const tx=cx+bw*.84;
+    s+=`<g class="tail">`+tailSVG([[[tx,226],[tx+30,230],[tx+48,206],[tx+36,176]],[[tx+36,176],[tx+30,160],[tx+14,164],[tx+20,178]]],23,16)+`</g>`;
+    const bib=`M${cx-bw*.34} 118C${cx-bw*.55} 160 ${cx-bw*.5} 214 ${cx-bw*.34} 242H${cx+bw*.34}C${cx+bw*.5} 214 ${cx+bw*.55} 160 ${cx+bw*.34} 118Z`;
+    const L=cx-bw*1.2,R=cx+bw*1.2;
+    s+=`<defs><clipPath id="cb${sid}"><path d="${bodyP}"/></clipPath></defs><path d="${bodyP}" fill="${OR}"/><g clip-path="url(#cb${sid})"><circle cx="${cx+bw*.66}" cy="180" r="22" fill="${BK}"/><path d="M${L} 150q22 4 30 18M${L} 172q24 2 34 16M${L} 194q22 0 32 12M${R} 150q-22 4-30 18M${R} 192q-22 2-32 14" fill="none" stroke="${BR}" stroke-width="5" stroke-linecap="round"/><path d="${bib}" fill="${W}"/></g><path d="${bodyP}" fill="none" ${st}/>`;
+    s+=`<path d="M${cx-22} 206V230M${cx-4} 208V230M${cx+4} 208V230M${cx+22} 206V230" fill="none" ${st2}/><ellipse cx="${cx-14}" cy="234" rx="13" ry="6.5" fill="${W}" ${st2}/><ellipse cx="${cx+14}" cy="234" rx="13" ry="6.5" fill="${W}" ${st2}/><path d="M${cx+6} 214h14M${cx+6} 221h14" fill="none" stroke="${BR}" stroke-width="3.2" stroke-linecap="round"/>`;
+    if(has('bed'))s+=decBedFront(cx,Math.min(124,bw*1.16+30));
+    if(has('scratch'))s+=decScratch(cx);
+    if(has('yarn'))s+=yarnBall(cx+bw*.62+12,225);
+    if(has('bucket'))s+=decBucket(262,238);
+    if(has('box'))s+=`<rect x="${cx-bw-14}" y="192" width="${2*bw+28}" height="46" rx="5" fill="#e6c79d" ${st}/><path d="M${cx-16} 192v12h32v-12" fill="#d3ad78" ${st2}/>`;
+    s+=catHead(cx,108,1,-3,m,sid);
+  }else{
+    const bodyP='M62 212C56 170 104 146 160 146C222 146 260 176 254 214C252 232 236 238 200 238L96 238C74 238 64 228 62 212Z';
+    if(has('bucket'))s+=decBucket(272,238);
+    s+=tailSVG([[[252,218],[284,222],[280,246],[226,244]]],21,14);
+    s+=`<defs><clipPath id="cb${sid}"><path d="${bodyP}"/></clipPath></defs><path d="${bodyP}" fill="${OR}"/><g clip-path="url(#cb${sid})"><circle cx="228" cy="188" r="26" fill="${BK}"/><path d="M120 148q-6 18-4 34M158 146q-2 20 0 38M196 148q6 18 4 34" fill="none" stroke="${BR}" stroke-width="6" stroke-linecap="round"/><path d="M50 216Q160 204 270 216V250H50Z" fill="${W}"/></g><path d="${bodyP}" fill="none" ${st}/>`;
+    s+=`<ellipse cx="130" cy="232" rx="20" ry="8" fill="${W}" ${st2}/>`;
+    if(has('bed'))s+=decBedFront(158,122);
+    if(has('scratch'))s+=decScratch(cx);
+    if(has('yarn'))s+=yarnBall(268,226);
+    if(has('box'))s+=`<rect x="40" y="200" width="236" height="38" rx="5" fill="#e6c79d" ${st}/>`;
+    s+=catHead(94,196,.82,-6,m,sid);
+    s+=`<text x="132" y="126" class="zz">z Z</text>`;
+  }
+  return s+`</g></g></svg>`;
+}
+
+/* ============ study timer (YPT style stopwatch) ============ */
+const TMAX=12*3600e3;
+function tmElapsed(now){now=now||Date.now();const T=S.timer;if(!T||T.state==='idle')return 0;return Math.min(TMAX,Math.max(0,(+T.acc||0)+(T.state==='run'?now-T.since:0)))}
+const fmtHMS=ms=>{const s=Math.floor(ms/1000);return pad(Math.floor(s/3600))+':'+pad(Math.floor(s%3600/60))+':'+pad(s%60)};
+const fmtDur=min=>{min=Math.max(0,Math.floor(min));const h=Math.floor(min/60),m=min%60;return h?h+'h '+pad(m)+'m':m+'m'};
+function subjName(id){if(!id)return t('tm.general');const g=S.goals.find(x=>x.id===id);return g?g.title:t('tm.deleted')}
+function commitStudy(ms,subj){
+  let rem=Math.min(ms,TMAX),cursor=Date.now(),total=0;
+  while(rem>0){
+    const d=new Date(cursor-1),ds=new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();
+    const part=Math.min(rem,cursor-ds),date=ymd(d),m=Math.round(part/60000);
+    if(m>0){const l=S.logs[date]||(S.logs[date]={min:0,note:''});l.min=(+l.min||0)+m;l.subj=l.subj||{};l.subj[subj||'']=(l.subj[subj||'']||0)+m;total+=m}
+    rem-=part;cursor=ds;
+  }
+  if(total>0){const xp=Math.floor(total/10),c=Math.floor(total/15);award(xp,c);toast(t('tm.saved',{m:total,x:xp,c}))}
+  else toast(t('tm.short'));
+  return total;
+}
+function tmAct(a){
+  const T=S.timer,now=Date.now();
+  if(a==='tmStart'&&T.state==='idle')S.timer={state:'run',since:now,acc:0,subj:T.subj||''};
+  else if(a==='tmPause'&&T.state==='run'){T.acc=tmElapsed(now);T.state='pause'}
+  else if(a==='tmResume'&&T.state==='pause'){T.since=now;T.state='run'}
+  else if(a==='tmStop'&&T.state!=='idle'){const ms=tmElapsed(now),sj=T.subj;S.timer={state:'idle',since:0,acc:0,subj:sj};commitStudy(ms,sj)}
+  else if(a==='tmDiscard')S.timer={state:'idle',since:0,acc:0,subj:T.subj||''};
+  after();
+}
+let wl=null,wlBusy=false;
+async function syncWake(){
+  if(wlBusy)return;wlBusy=true;
+  try{
+    const want=!!(S.settings.keepAwake&&S.timer.state==='run'&&!document.hidden&&navigator.wakeLock);
+    if(want&&!wl){wl=await navigator.wakeLock.request('screen');wl.addEventListener('release',()=>{wl=null})}
+    else if(!want&&wl){const w=wl;wl=null;await w.release()}
+  }catch(e){wl=null}
+  wlBusy=false;
+}
+function tickTimer(){
+  const T=S.timer,ms=tmElapsed(),on=T.state!=='idle',ic=T.state==='pause'?'⏸ ':'⏱ ';
+  const big=$('#tbig');if(big)big.textContent=fmtHMS(ms);
+  const chip=$('#tchip');if(chip)chip.textContent=ic+fmtHMS(ms);
+  const td=$('#ttoday');if(td){const l=S.logs[todayStr()];td.textContent=fmtDur((l?+l.min||0:0)+ms/60000)}
+  document.title=on?ic+fmtHMS(ms)+' · '+t('app'):t('app');
+}
+setInterval(tickTimer,1000);
+function vTimer(){
+  const T=S.timer,st=T.state,ms=tmElapsed(),td=S.logs[todayStr()]||{min:0},subs=td.subj||{};
+  const opts=[['',t('tm.general')]].concat(S.goals.filter(g=>prog(g)<100||g.id===T.subj).map(g=>[g.id,g.title]));
+  if(T.subj&&!opts.some(o=>o[0]===T.subj))opts.push([T.subj,t('tm.deleted')]);
+  const rows=Object.entries(subs).sort((a,b)=>b[1]-a[1]),mx=Math.max(1,...rows.map(r=>r[1]));
+  const btns=st==='idle'?`<button class="btn big" data-act="tmStart">▶ ${t('tm.start')}</button>`
+   :st==='run'?`<button class="btn ghost big" data-act="tmPause">⏸ ${t('tm.pause')}</button><button class="btn big" data-act="tmStop">■ ${t('tm.stop')}</button>`
+   :`<button class="btn big" data-act="tmResume">▶ ${t('tm.resume')}</button><button class="btn ghost big" data-act="tmStop">■ ${t('tm.stop')}</button>`;
+  return`<div class="two"><section class="card tm ${st==='run'?'run':''}"><small>${t('tm.today')}</small><div class="hand" style="font-size:26px" id="ttoday">${fmtDur((+td.min||0)+ms/60000)}</div>
+  <div class="tclock" id="tbig">${fmtHMS(ms)}</div><div class="muted" style="margin-bottom:12px">${t('tm.status.'+st)}</div>
+  <div class="row" style="justify-content:center;margin-bottom:16px">${btns}</div>
+  <div style="text-align:left"><label class="muted" style="font-size:13px">${t('tm.subject')}</label><select data-change="tmSubj" style="width:100%">${opts.map(o=>`<option value="${esc(o[0])}" ${o[0]===(T.subj||'')?'selected':''}>${esc(o[1])}</option>`).join('')}</select><small>${t('tm.hint')}</small></div>
+  <label style="display:flex;gap:8px;align-items:center;justify-content:center;margin-top:14px;font-size:14px"><input type="checkbox" data-change="tmWake" ${S.settings.keepAwake?'checked':''}> ${t('tm.awake')}</label>
+  ${st!=='idle'?`<button class="btn danger sm" style="margin-top:12px" data-act="tmDiscard">${t('tm.discard')}</button>`:''}</section>
+  <section class="card"><h3 class="hand">${t('tm.bySubj')}</h3>${rows.length?rows.map(([id,m])=>`<div class="q"><div class="qt">${esc(subjName(id))}</div><div class="bar" style="max-width:110px"><i style="width:${m/mx*100}%"></i></div><b style="min-width:64px;text-align:right">${fmtDur(m)}</b></div>`).join(''):`<small>${t('tm.none')}</small>`}<p><small>${t('tm.cap')}</small></p></section></div>`;
+}
+
+/* ============ view parts ============ */
+function topbar(){
+  const navs=[['home','🏠'],['timer','⏱'],['goals','🎯'],['stats','📈'],['cat','🐱'],['set','⚙️']];
+  const ti={light:'☀️',dark:'🌙',auto:'🖥️'}[S.settings.theme];
+  return`<header class="top"><div class="brand">🐾 <b class="hand">${t('app')}</b></div><nav>${navs.map(([k,i])=>`<button class="${ui.view===k?'on':''}" data-act="nav" data-v="${k}">${i} <span>${t('nav.'+k)}</span></button>`).join('')}</nav><div class="quick">${S.timer.state!=='idle'?`<button class="coin" id="tchip" data-act="nav" data-v="timer" style="border:0;cursor:pointer">${S.timer.state==='pause'?'⏸':'⏱'} ${fmtHMS(tmElapsed())}</button>`:''}<span class="coin">🪙 ${fmt(S.pet.coins)}</span><button class="icon" data-act="lang" title="Language">${S.settings.lang==='zh'?'EN':'中'}</button><button class="icon" data-act="themeCycle" title="Theme">${ti}</button></div></header>`;
+}
+function dueInfo(due,done){
+  if(!due)return'';
+  if(done)return`<span class="due">📅 ${esc(due)}</span>`;
+  const diff=Math.round((parseD(due)-parseD(todayStr()))/864e5);
+  const cls=diff<0?'late':diff<=3?'soon':'';
+  const txt=diff<0?t('overdue',{n:-diff}):diff===0?t('today'):t('daysLeft',{n:diff});
+  return`<span class="due ${cls}">⏰ ${txt}</span>`;
+}
+const lvMin=m=>m<=0?0:m<30?1:m<60?2:m<120?3:4;
+const lvTask=n=>n<=0?0:n===1?1:n===2?2:n<5?3:4;
+function heatmap(){
+  const wk=26,step=20,cell=16,left=26,top=18,today=new Date();
+  const start=addDays(addDays(today,-today.getDay()),-(wk-1)*7);
+  const W=left+wk*step,H=top+7*step,td=todayStr();
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="hm" role="img" aria-label="${t('hm.title')}">`;
+  const wf=new Intl.DateTimeFormat(loc(),{weekday:'short'}),mf=new Intl.DateTimeFormat(loc(),{month:'short'});
+  [1,3,5].forEach(r=>{s+=`<text x="0" y="${top+r*step+12}">${wf.format(addDays(start,r))}</text>`});
+  let lm=-1;
+  for(let c=0;c<wk;c++){const d0=addDays(start,c*7);if(d0.getMonth()!==lm){lm=d0.getMonth();s+=`<text x="${left+c*step}" y="11">${mf.format(d0)}</text>`}}
+  for(let c=0;c<wk;c++)for(let r=0;r<7;r++){
+    const d=addDays(start,c*7+r);if(d>today)continue;
+    const k=ymd(d),a=ACT[k]||{min:0,done:0},lv=ui.hm==='min'?lvMin(a.min):lvTask(a.done);
+    s+=`<rect class="h${lv}${k===td?' today':''}" x="${left+c*step}" y="${top+r*step}" width="${cell}" height="${cell}" rx="4" data-act="day" data-date="${k}"><title>${esc(t('hmTip',{d:k,m:a.min,k:a.done}))}</title></rect>`;
+  }
+  return s+'</svg>';
+}
+function petPanel(big){
+  const p=S.pet,m=mood(),l=level(p.xp),cur=p.xp-xpFor(l),need=xpFor(l+1)-xpFor(l);
+  const say=m==='away'?t('away.homeSay',{name:p.name}):pick(t('say.'+m).split('|'));
+  let hint='';
+  if(m==='sad')hint=t('graceLeft',{n:Math.max(1,Math.ceil(GRACE_H-(Date.now()-p.grace)/36e5))});
+  else if(m!=='away')hint=t('hungerIn',{n:(p.fullness/RATE/24).toFixed(1)});
+  let h=`<section class="card pet ${big?'big':''}"><div class="bubble">${esc(say)}</div><div class="catwrap ${m}" data-act="cat">${catSVG(m,big?'b':'m')}</div><div class="pname"><b class="hand">${esc(p.name)}</b> <span class="tag">${t('lv',{n:l})}</span></div>`;
+  if(m==='away'){
+    h+=`<p class="muted" style="margin:6px 0">${esc(t('away.title',{name:p.name}))}</p>`;
+    if(big||true)h+=`<div class="meter"><span>${t('away.tasks',{a:'',b:''}).split('：')[0].split(':')[0]}</span><div class="bar"><i style="width:${Math.min(100,p.awayTasks/RESCUE_TASKS*100)}%"></i></div><span>${Math.min(p.awayTasks,RESCUE_TASKS)}/${RESCUE_TASKS}</span></div>`;
+  }else{
+    h+=`<div class="meter"><span>${t('bar.full')}</span><div class="bar ${p.fullness<30?'low':''}"><i style="width:${p.fullness}%"></i></div><span>${Math.round(p.fullness)}%</span></div>`;
+  }
+  h+=`<div class="meter"><span>${t('bar.xp')}</span><div class="bar"><i style="width:${Math.min(100,cur/need*100)}%"></i></div><span>${cur}/${need}</span></div>`;
+  if(hint)h+=`<small>${hint}</small>`;
+  if(!big)h+=`<div style="margin-top:10px"><button class="btn ghost sm" data-act="nav" data-v="cat">🐱 ${t('nav.cat')} →</button></div>`;
+  return h+'</section>';
+}
+function questsCard(){
+  const items=S.daily.ids.map(id=>S.tasks.find(x=>x.id===id)).filter(Boolean);
+  let h=`<section class="card"><h3 class="hand">${t('q.title')}</h3>`;
+  if(!items.length)h+=`<p class="muted">${t('q.none')}</p>`;
+  else{
+    h+=items.map(k=>{const g=S.goals.find(x=>x.id===k.goalId);return`<div class="q ${k.done?'done':''}"><button class="ck ${k.done?'on':''}" data-act="toggleTask" data-id="${k.id}" aria-label="toggle">✓</button><div class="qt">${esc(k.title)}<br><small>${g?esc(g.title):''} ${dueInfo(k.due,k.done)}</small></div></div>`}).join('');
+    h+=`<small>${S.daily.bonus?t('q.got'):t('q.bonus')}</small>`;
+  }
+  return h+'</section>';
+}
+function upcoming(){
+  const items=[];
+  S.goals.filter(g=>g.due&&prog(g)<100).forEach(g=>items.push({due:g.due,title:g.title,sub:'🎯'}));
+  S.tasks.filter(k=>k.due&&!k.done).forEach(k=>{const g=S.goals.find(x=>x.id===k.goalId);items.push({due:k.due,title:k.title,sub:g?g.title:''})});
+  items.sort((a,b)=>a.due.localeCompare(b.due));
+  return`<section class="card"><h3 class="hand">${t('up.title')}</h3>${items.length?items.slice(0,6).map(i=>`<div class="q"><div class="qt">${esc(i.title)} <small>${esc(i.sub)}</small></div>${dueInfo(i.due,false)}</div>`).join(''):`<p class="muted">${t('up.none')}</p>`}</section>`;
+}
+function sumDays(n){let m=0,d=0;for(let i=0;i<n;i++){const a=ACT[ymd(addDays(new Date(),-i))];if(a){m+=a.min;d+=a.done}}return{m,d}}
+
+/* ============ views ============ */
+function vHome(){
+  const w=sumDays(7);
+  return`${S.goals.length?'':`<div class="banner"><span>${t('wel')}</span><span class="row"><button class="btn" data-act="goalNew">${t('addGoal')}</button><button class="btn ghost" data-act="sample">${t('sample')}</button></span></div>`}
+  <div class="home"><section class="card"><div class="row between"><h2 class="hand">${t('hm.title')}</h2><div class="seg"><button class="${ui.hm==='min'?'on':''}" data-act="hm" data-val="min">${t('hm.min')}</button><button class="${ui.hm==='tasks'?'on':''}" data-act="hm" data-val="tasks">${t('hm.tasks')}</button></div></div>
+  ${heatmap()}<div class="legend">${t('less')} <i class="h0"></i><i class="h1"></i><i class="h2"></i><i class="h3"></i><i class="h4"></i> ${t('more')}</div>
+  <div class="stats3"><div><b>${streak(ACT)}</b><small>${t('streak')}</small></div><div><b>${(w.m/60).toFixed(1)}</b><small>${t('wk.h')}</small></div><div><b>${w.d}</b><small>${t('wk.d')}</small></div></div>
+  <div class="row"><button class="btn" data-act="nav" data-v="timer">⏱ ${t('tm.open')}</button><button class="btn ghost" data-act="day" data-date="${todayStr()}">＋ ${t('logTime')}</button></div></section>
+  <aside>${petPanel(false)}${questsCard()}</aside></div>${upcoming()}`;
+}
+function goalCard(g){
+  const d=S.domains.find(x=>x.id===g.domainId)||{color:'#999'},p=prog(g),open=ui.open[g.id];
+  let h=`<article class="goal" style="--dc:${esc(d.color)}"><div class="ghead" data-act="toggleGoal" data-id="${g.id}"><div class="gtitle">${esc(g.title)} <span class="tag">${t('hz.'+g.horizon).split('（')[0].split(' (')[0]}</span> ${p>=100?`<span class="tag">✅ ${t('done100')}</span>`:dueInfo(g.due,false)}</div><div class="gprog"><div class="bar"><i style="width:${p}%"></i></div><b>${p}%</b></div><small>${progText(g)}</small></div>`;
+  if(open){
+    h+=`<div class="gbody">${g.note?`<p class="muted" style="margin-top:0">${esc(g.note)}</p>`:''}`;
+    if(g.mode==='value')h+=`<form class="inl" data-form="valueSet" data-id="${g.id}" style="margin:0 0 10px"><label class="muted">${t('valLabel')}</label><input type="number" name="v" step="any" value="${g.current}" style="width:130px"><span class="muted">${esc(g.unit||'')}</span><button class="btn sm">${t('update')}</button></form>`;
+    if(g.mode==='manual')h+=`<div class="row" style="margin-bottom:10px"><input type="range" min="0" max="100" value="${g.manual||0}" data-change="manual" data-id="${g.id}" style="flex:1"><b>${g.manual||0}%</b></div>`;
+    const ts=S.tasks.filter(k=>k.goalId===g.id);
+    h+=ts.length?ts.map(k=>`<div class="task ${k.done?'done':''}"><button class="ck ${k.done?'on':''}" data-act="toggleTask" data-id="${k.id}" aria-label="toggle">✓</button><span class="qt">${esc(k.title)}</span>${dueInfo(k.due,k.done)}<button class="x" data-act="delTask" data-id="${k.id}" aria-label="${t('del')}">×</button></div>`).join(''):`<small>${t('noTasks')}</small>`;
+    h+=`<form class="inl" data-form="addTask" data-id="${g.id}"><input type="text" name="title" placeholder="${t('addTaskPh')}" required maxlength="120"><input type="date" name="due"><button class="btn sm">${t('add')}</button></form>
+    <div class="row" style="margin-top:12px;justify-content:flex-end"><button class="btn ghost sm" data-act="goalEdit" data-id="${g.id}">${t('edit')}</button><button class="btn danger sm" data-act="goalDel" data-id="${g.id}">${t('del')}</button></div></div>`;
+  }
+  return h+'</article>';
+}
+function vGoals(){
+  const f=ui.filter;
+  let h=`<div class="row between" style="margin-bottom:6px"><div class="seg">${['all',...HZ].map(k=>`<button class="${f===k?'on':''}" data-act="filter" data-val="${k}">${k==='all'?t('all'):t('hz.'+k).split('（')[0].split(' (')[0]}</button>`).join('')}</div><div class="row"><button class="btn ghost sm" data-act="domains">${t('manageDom')}</button><button class="btn" data-act="goalNew">${t('addGoal')}</button></div></div>`;
+  let any=false;
+  for(const d of S.domains){
+    const gs=S.goals.filter(g=>g.domainId===d.id&&(f==='all'||g.horizon===f)).sort((a,b)=>HZ.indexOf(a.horizon)-HZ.indexOf(b.horizon)||(a.due||'9999').localeCompare(b.due||'9999'));
+    if(!gs.length)continue;any=true;
+    const avg=Math.round(gs.reduce((a,g)=>a+prog(g),0)/gs.length);
+    h+=`<div class="domhead"><span style="font-size:24px">${esc(d.icon)}</span><h3 class="hand" style="color:${esc(d.color)}">${esc(dname(d))}</h3><small>${avg}%</small></div>${gs.map(goalCard).join('')}`;
+  }
+  if(!any)h+=`<div class="card"><p class="muted">${t('noGoals')}</p>${S.goals.length?'':`<button class="btn ghost" data-act="sample">${t('sample')}</button>`}</div>`;
+  return h;
+}
+function niceMax(m){const mag=Math.pow(10,Math.floor(Math.log10(m))),n=m/mag;return(n<=1?1:n<=2?2:n<=5?5:10)*mag}
+function lineChart(){
+  const pts=[];
+  if(ui.chart==='week'){
+    const sun=addDays(new Date(),-new Date().getDay());
+    for(let i=7;i>=0;i--){const s=addDays(sun,-7*i);let m=0;for(let j=0;j<7;j++){const a=ACT[ymd(addDays(s,j))];if(a)m+=a.min}pts.push({l:(s.getMonth()+1)+'/'+s.getDate(),v:m/60})}
+  }else{
+    const now=new Date();
+    for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);let m=0;for(const k in ACT){const x=parseD(k);if(x.getFullYear()===d.getFullYear()&&x.getMonth()===d.getMonth())m+=ACT[k].min}pts.push({l:new Intl.DateTimeFormat(loc(),{month:'short'}).format(d),v:m/60})}
+  }
+  const W=600,H=260,pl=42,pr=16,pt=16,pb=34,max=niceMax(Math.max(...pts.map(p=>p.v),1));
+  const X=i=>pl+i*(W-pl-pr)/(pts.length-1),Y=v=>pt+(H-pt-pb)*(1-v/max);
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="chart" role="img" aria-label="${t('ch.title')}">`;
+  for(let i=0;i<=4;i++){const v=max*i/4,y=Y(v);s+=`<line x1="${pl}" x2="${W-pr}" y1="${y}" y2="${y}" stroke="var(--border)" stroke-dasharray="3 4"/><text x="${pl-6}" y="${y+4}" text-anchor="end">${+v.toFixed(1)}</text>`}
+  const line=pts.map((p,i)=>`${i?'L':'M'}${X(i)} ${Y(p.v)}`).join('');
+  s+=`<path d="${line}L${X(pts.length-1)} ${Y(0)}L${X(0)} ${Y(0)}Z" fill="var(--accent)" opacity=".15"/><path d="${line}" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+  pts.forEach((p,i)=>{s+=`<circle cx="${X(i)}" cy="${Y(p.v)}" r="4.5" fill="var(--paper)" stroke="var(--accent)" stroke-width="2.5"><title>${p.l}: ${p.v.toFixed(1)} h</title></circle><text x="${X(i)}" y="${H-12}" text-anchor="middle">${p.l}</text>`});
+  return s+'</svg>';
+}
+function radar(){
+  const ds=S.domains.map(d=>{const gs=S.goals.filter(g=>g.domainId===d.id);return{d,v:gs.length?gs.reduce((a,g)=>a+prog(g),0)/gs.length:0}});
+  if(ds.length<3)return`<p class="muted">${t('radar.need')}</p>`;
+  const cx=210,cy=190,R=115,n=ds.length,pt=(i,r)=>{const a=-Math.PI/2+i*2*Math.PI/n;return[cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
+  let s=`<svg viewBox="0 0 420 380" class="chart" role="img" aria-label="${t('radar.title')}">`;
+  [.25,.5,.75,1].forEach(f=>{s+=`<polygon points="${ds.map((_,i)=>pt(i,R*f).join(',')).join(' ')}" fill="none" stroke="var(--border)"/>`});
+  ds.forEach((_,i)=>{const[x,y]=pt(i,R);s+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="var(--border)"/>`});
+  s+=`<polygon points="${ds.map((o,i)=>pt(i,Math.max(3,R*o.v/100)).join(',')).join(' ')}" fill="var(--accent)" fill-opacity=".28" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>`;
+  ds.forEach((o,i)=>{const[x,y]=pt(i,R+24),[px,py]=pt(i,Math.max(3,R*o.v/100)),a=x<cx-8?'end':x>cx+8?'start':'middle';let nm=dname(o.d);if(nm.length>8)nm=nm.slice(0,7)+'…';s+=`<circle cx="${px}" cy="${py}" r="3.5" fill="var(--accent)"/><text x="${x}" y="${y+4}" text-anchor="${a}" style="font-size:12px;fill:var(--ink)">${esc(o.d.icon)} ${esc(nm)} ${Math.round(o.v)}%</text>`});
+  return s+'</svg>';
+}
+function vStats(){
+  const done=S.tasks.filter(x=>x.done).length,min=Object.values(S.logs).reduce((a,l)=>a+(+l.min||0),0);
+  const avg=S.goals.length?Math.round(S.goals.reduce((a,g)=>a+prog(g),0)/S.goals.length):0;
+  return`<div class="tiles"><div class="tile"><b>${done}</b><small>${t('st.done')}</small></div><div class="tile"><b>${(min/60).toFixed(1)}</b><small>${t('st.hours')}</small></div><div class="tile"><b>${bestStreak(ACT)}</b><small>${t('st.best')}</small></div><div class="tile"><b>${avg}%</b><small>${t('st.rate')}</small></div></div>
+  <div class="two"><section class="card"><div class="row between"><h3 class="hand">${t('ch.title')}</h3><div class="seg"><button class="${ui.chart==='week'?'on':''}" data-act="chart" data-val="week">${t('ch.week')}</button><button class="${ui.chart==='month'?'on':''}" data-act="chart" data-val="month">${t('ch.month')}</button></div></div>${lineChart()}</section>
+  <section class="card"><h3 class="hand">${t('radar.title')}</h3>${radar()}<small>${t('radar.hint')}</small></section></div>`;
+}
+function vCat(){
+  const p=S.pet,away=p.away,l=level(p.xp);
+  let h=`<div class="two"><div>${petPanel(true)}<section class="card"><form class="inl" data-form="petName" style="margin:0"><label class="muted" style="align-self:center">${t('cat.name')}</label><input type="text" name="n" value="${esc(p.name)}" maxlength="12" required><button class="btn sm">${t('save')}</button></form></section></div><div>`;
+  if(away){
+    h+=`<section class="card"><h3 class="hand">${esc(t('away.title',{name:p.name}))}</h3><p>${t('away.desc')}</p><p>${t('away.tasks',{a:Math.min(p.awayTasks,RESCUE_TASKS),b:RESCUE_TASKS})}<br>${t('away.cost',{n:RESCUE_COST})}</p><button class="btn" data-act="rescue">📢 ${t('away.btn')}</button></section>`;
+  }
+  h+=`<section class="card"><h3 class="hand">🍚 ${t('cat.food')}</h3><div class="shop">${FOODS.map(f=>`<div class="item"><span class="em">${f.icon}</span><b>${t('food.'+f.id)}</b><small>+${f.gain} · ${t('food.days',{n:(f.gain/(RATE*24)).toFixed(1)})}<br>🪙 ${f.cost}</small><button class="btn sm" data-act="feed" data-id="${f.id}" ${away?'disabled':''}>${t('feedBtn')}</button></div>`).join('')}</div></section>
+  <section class="card"><h3 class="hand">🧸 ${t('cat.decor')}</h3><div class="shop">${DECOR.map(d=>{const own=p.owned.includes(d.id),on=p.equipped.includes(d.id),lock=l<d.lvl&&!own;return`<div class="item ${lock?'lock':''}"><span class="em">${d.icon}</span><b>${t('decor.'+d.id)}</b><small>${lock?t('needLv',{n:d.lvl}):own?t('owned'):'🪙 '+d.cost}</small>${own?`<button class="btn ghost sm" data-act="equip" data-id="${d.id}">${on?t('unequip'):t('equip')}</button>`:`<button class="btn sm" data-act="buyDecor" data-id="${d.id}" ${lock?'disabled':''}>${t('buy')}</button>`}</div>`}).join('')}</div></section></div></div>`;
+  h+=`<section class="card"><h3 class="hand">🎁 ${t('cat.rewards')}</h3><div class="shop">${S.rewards.map(r=>`<div class="item"><span class="em">${esc(r.icon||'🎁')}</span><b>${esc(r.name)}</b><small>🪙 ${r.cost}</small><div class="row" style="justify-content:center"><button class="btn sm" data-act="redeem" data-id="${r.id}">${t('rw.redeem')}</button><button class="x" data-act="delReward" data-id="${r.id}" aria-label="${t('del')}">×</button></div></div>`).join('')}</div>
+  <form class="inl" data-form="rewardNew" style="margin-top:12px"><input type="text" name="icon" value="🎁" maxlength="4" style="width:60px"><input type="text" name="name" placeholder="${t('rw.name')}" required maxlength="40"><input type="number" name="cost" min="1" value="50" style="width:90px" title="${t('rw.cost')}"><button class="btn sm">${t('rw.new')}</button></form>
+  <h3 style="margin-top:18px;font-size:15px">${t('rw.hist')}</h3>${S.claims.length?S.claims.slice(0,8).map(c=>`<div class="q"><div class="qt">${esc(c.name)}</div><small>🪙 ${c.cost} · ${new Date(c.ts).toLocaleDateString(loc())}</small></div>`).join(''):`<small>${t('rw.none')}</small>`}</section>
+  <section class="card"><h3 class="hand">🏅 ${t('cat.ach')}</h3><div class="ach">${Object.keys(ACHS).map(k=>{const[n,d]=t('ach.'+k).split('|');return`<div class="${S.ach[k]?'':'off'}"><b>🏅 ${esc(n)}</b><br><small>${esc(d)}</small></div>`}).join('')}</div></section>`;
+  return h;
+}
+function vSet(){
+  const L=S.settings.lang,T=S.settings.theme;
+  return`<section class="card"><h3 class="hand">${t('set.lang')}</h3><div class="seg"><button class="${L==='zh'?'on':''}" data-act="setLang" data-val="zh">繁體中文</button><button class="${L==='en'?'on':''}" data-act="setLang" data-val="en">English</button></div>
+  <h3 class="hand" style="margin-top:20px">${t('set.theme')}</h3><div class="seg">${['light','dark','auto'].map(k=>`<button class="${T===k?'on':''}" data-act="setTheme" data-val="${k}">${t('th.'+k)}</button>`).join('')}</div></section>
+  <section class="card"><h3 class="hand">${t('set.data')}</h3><div class="row"><button class="btn" data-act="export">⬇️ ${t('set.export')}</button><button class="btn ghost" data-act="importPick">⬆️ ${t('set.import')}</button><input type="file" id="imp" accept="application/json,.json" class="hide" data-change="import"><button class="btn ghost" data-act="sample">${t('set.sample')}</button><button class="btn danger" data-act="clear">${t('set.clear')}</button></div><p><small>${t('set.note')}</small></p></section>`;
+}
+
+function render(){
+  applyTheme();tick();ensureDaily();ACT=actMap();
+  const v={home:vHome,timer:vTimer,goals:vGoals,stats:vStats,cat:vCat,set:vSet}[ui.view]||vHome;
+  $('#app').innerHTML=topbar()+`<main>${v()}</main>`;
+  tickTimer();syncWake();
+}
+
+/* ============ modals ============ */
+function openModal(html){$('#modal').innerHTML=`<div class="overlay" data-act="overlay"><div class="modal" role="dialog" aria-modal="true">${html}</div></div>`;const f=$('#modal input:not([type=hidden]),#modal textarea');if(f&&!matchMedia('(pointer:coarse)').matches)f.focus()}
+function closeModal(){$('#modal').innerHTML=''}
+let askCb=null;
+function ask(msg,yes){askCb=yes;$('#confirm').innerHTML=`<div class="overlay" style="z-index:80"><div class="modal" role="alertdialog" aria-modal="true"><p style="margin-top:0">${esc(msg)}</p><div class="acts"><button type="button" class="btn ghost" data-act="askNo">${t('cancel')}</button><button type="button" class="btn danger" data-act="askYes">${t('ok')}</button></div></div></div>`}
+function goalModal(id){
+  const g=S.goals.find(x=>x.id===id)||{title:'',domainId:(S.domains[0]||{}).id,horizon:'month',due:'',mode:'tasks',target:10,unit:'',current:0,manual:0,note:''};
+  openModal(`<h2 class="hand">${id?t('g.edit'):t('g.new')}</h2><form data-form="goalForm" data-id="${id||''}" novalidate><label>${t('g.title')}</label><input name="title" required maxlength="80" value="${esc(g.title)}">
+  <div class="grid2"><div><label>${t('g.domain')}</label><select name="domainId">${S.domains.map(d=>`<option value="${d.id}" ${d.id===g.domainId?'selected':''}>${esc(d.icon)} ${esc(dname(d))}</option>`).join('')}</select></div><div><label>${t('g.hz')}</label><select name="horizon">${HZ.map(k=>`<option value="${k}" ${k===g.horizon?'selected':''}>${t('hz.'+k)}</option>`).join('')}</select></div></div>
+  <div class="grid2"><div><label>${t('g.due')}</label><input type="date" name="due" value="${esc(g.due||'')}"></div><div><label>${t('g.mode')}</label><select name="mode" data-act="modeSel">${['tasks','value','manual'].map(k=>`<option value="${k}" ${k===g.mode?'selected':''}>${t('mode.'+k)}</option>`).join('')}</select></div></div>
+  <small id="modeHint" style="display:block;margin-top:6px">${t('g.hint.'+g.mode)}</small>
+  <div id="fVal" class="${g.mode==='value'?'':'hide'}"><div class="grid2"><div><label>${t('g.target')}</label><input type="number" step="any" min="0" name="target" value="${g.target}"></div><div><label>${t('g.current')}</label><input type="number" step="any" name="current" value="${g.current}"></div></div><label>${t('g.unit')}</label><input name="unit" maxlength="10" value="${esc(g.unit||'')}"></div>
+  <div id="fMan" class="${g.mode==='manual'?'':'hide'}"><label>${t('g.manualP')}</label><input type="number" min="0" max="100" name="manual" value="${g.manual||0}"></div>
+  <label>${t('g.note')}</label><textarea name="note" rows="2" maxlength="300">${esc(g.note||'')}</textarea>
+  <div class="acts"><button type="button" class="btn ghost" data-act="closeModal">${t('cancel')}</button><button class="btn">${t('save')}</button></div></form>`);
+}
+function dayModal(date){
+  if(date>todayStr()){toast(t('day.future'));return}
+  const l=S.logs[date]||{min:0,note:''},ds=S.tasks.filter(k=>k.done&&k.doneDate===date);
+  openModal(`<h2 class="hand">${t('day.title')}</h2><p class="muted" style="margin-top:0">${esc(fmtDate(date))}</p><form data-form="dayForm" data-date="${date}"><label>${t('day.min')}</label><input type="number" name="min" min="0" max="1440" id="dmin" value="${l.min||0}">
+  <div class="row" style="margin-top:8px">${[15,30,60].map(n=>`<button type="button" class="btn ghost sm" data-act="addMin" data-n="${n}">+${n}</button>`).join('')}</div>
+  <label>${t('day.note')}</label><textarea name="note" rows="2" maxlength="300">${esc(l.note||'')}</textarea>
+  <label>${t('day.done')}</label>${ds.length?ds.map(k=>`<div class="task"><span>✅</span><span class="qt">${esc(k.title)}</span></div>`).join(''):`<small>${t('day.none')}</small>`}
+  <div class="acts"><button type="button" class="btn ghost" data-act="closeModal">${t('cancel')}</button><button class="btn">${t('save')}</button></div></form>`);
+}
+function domainsModal(){
+  openModal(`<h2 class="hand">${t('dom.title')}</h2>${S.domains.map(d=>`<form class="drow" data-form="domainSave" data-id="${d.id}"><input name="icon" value="${esc(d.icon)}" maxlength="4"><input name="name" value="${esc(dname(d))}" maxlength="16" required><input type="color" name="color" value="${esc(d.color)}"><button class="btn sm">${t('save')}</button><button type="button" class="btn danger sm" data-act="delDomain" data-id="${d.id}">${t('del')}</button></form>`).join('')}
+  <h3 style="margin-top:16px;font-size:15px">${t('dom.new')}</h3><form class="drow" data-form="domainNew"><input name="icon" value="⭐" maxlength="4"><input name="name" required maxlength="16"><input type="color" name="color" value="#e48a45"><button class="btn sm">${t('add')}</button></form>
+  <div class="acts"><button class="btn ghost" data-act="closeModal">${t('cancel')}</button></div>`);
+}
+
+/* ============ sample data ============ */
+function loadSample(){
+  const z=S.settings.lang==='zh',s=(a,b)=>z?a:b,now=new Date(),td=ymd(now);
+  const dom=k=>(S.domains.find(d=>d.key===k)||S.domains[0]).id,off=n=>ymd(addDays(now,n));
+  const mk=(domainId,title,horizon,due,mode,extra,tasks)=>{
+    const g={id:uid(),domainId,title,horizon,due,mode,target:0,unit:'',current:0,manual:0,note:'',rewarded:false,created:Date.now(),...extra};
+    S.goals.push(g);
+    (tasks||[]).forEach(([tt,done,dd],i)=>S.tasks.push({id:uid(),goalId:g.id,title:tt,done:!!done,doneDate:done?off(-(i*3+2)):null,rewarded:!!done,due:dd==null?'':off(dd),created:Date.now()+i}));
+  };
+  const eoy=ymd(new Date(now.getFullYear(),11,31)),eom=ymd(new Date(now.getFullYear(),now.getMonth()+1,0));
+  mk(dom('learn'),s('取得多益 900 分','Score 900 on TOEIC'),'year',off(150),'tasks',{note:s('先穩定 800 分，再衝刺 900。','Get stable at 800, then push for 900.')},[[s('購買官方題本','Buy the official test book'),1],[s('完成文法複習','Finish grammar review'),1],[s('每週模考一回 × 8','One mock test a week × 8'),0,20],[s('單字 1000 個背完','Learn 1,000 words'),0,60],[s('報名考試','Register for the exam'),0,90]]);
+  mk(dom('learn'),s('本月背 300 個單字','Learn 300 words this month'),'month',eom,'value',{target:300,current:128,unit:s('個','words')});
+  mk(dom('health'),s('每週運動 3 次','Exercise 3× a week'),'week',off(6-now.getDay()),'value',{target:3,current:1,unit:s('次','times')});
+  mk(dom('money'),s('存到第一桶金','Save the first big chunk'),'life',off(900),'value',{target:1000000,current:235000,unit:'TWD'});
+  mk(dom('career'),s('完成個人作品集','Finish my portfolio'),'month',off(20),'tasks',{},[[s('選出 5 個代表作','Pick 5 best projects'),1],[s('撰寫案例說明','Write case studies'),0,7],[s('設計版面','Design the layout'),0,14],[s('請朋友回饋','Ask friends for feedback'),0,18]]);
+  mk(dom('hobby'),s('今年讀 12 本書','Read 12 books this year'),'year',eoy,'value',{target:12,current:4,unit:s('本','books')});
+  mk(dom('social'),s('每月與家人聚餐','Family dinner every month'),'month',eom,'manual',{manual:50});
+  mk(dom('mind'),s('21 天冥想挑戰','21-day meditation challenge'),'month',off(15),'value',{target:21,current:6,unit:s('天','days')});
+  for(let i=1;i<=70;i++){
+    const d=ymd(addDays(now,-i));if(S.logs[d])continue;
+    const r=Math.abs(Math.sin(i*91.7)*1000)%1;
+    if(r>.3)S.logs[d]={min:Math.round(r*8)*15,note:''};
+  }
+  toast(t('saved'));
+}
+
+/* ============ events ============ */
+document.addEventListener('click',e=>{
+  const sb=e.target.closest('button');
+  if(sb&&!sb.dataset.act&&sb.type==='submit'&&sb.form&&sb.form.dataset.form){e.preventDefault();handleForm(sb.form);return}
+  const el=e.target.closest('[data-act]');if(!el)return;
+  const a=el.dataset.act,id=el.dataset.id,val=el.dataset.val;
+  if(a==='overlay'){if(e.target===el)closeModal();return}
+  switch(a){
+    case'nav':ui.view=el.dataset.v;window.scrollTo(0,0);render();break;
+    case'lang':case'setLang':S.settings.lang=a==='lang'?(S.settings.lang==='zh'?'en':'zh'):val;save();render();break;
+    case'themeCycle':S.settings.theme={light:'dark',dark:'auto',auto:'light'}[S.settings.theme];save();render();break;
+    case'setTheme':S.settings.theme=val;save();render();break;
+    case'hm':ui.hm=val;render();break;
+    case'chart':ui.chart=val;render();break;
+    case'filter':ui.filter=val;render();break;
+    case'day':dayModal(el.dataset.date);break;
+    case'addMin':{const i=$('#dmin');if(i)i.value=Math.min(1440,(+i.value||0)+ +el.dataset.n);break}
+    case'toggleGoal':ui.open[id]=!ui.open[id];render();break;
+    case'toggleTask':{
+      const k=S.tasks.find(x=>x.id===id);if(!k)break;
+      k.done=!k.done;
+      if(k.done){k.doneDate=todayStr();if(!k.rewarded){k.rewarded=true;award(10,5);if(S.pet.away)S.pet.awayTasks++;toast(t('taskDone'))}}else k.doneDate=null;
+      checkGoalDone(k.goalId);after();break}
+    case'delTask':S.tasks=S.tasks.filter(x=>x.id!==id);after();break;
+    case'goalNew':goalModal();break;
+    case'goalEdit':goalModal(id);break;
+    case'goalDel':ask(t('confirmDel'),()=>{S.goals=S.goals.filter(x=>x.id!==id);S.tasks=S.tasks.filter(x=>x.goalId!==id);after()});break;
+    case'domains':domainsModal();break;
+    case'delDomain':
+      if(S.goals.some(g=>g.domainId===id)){toast(t('dom.hasGoals'));break}
+      ask(t('confirmDel'),()=>{S.domains=S.domains.filter(d=>d.id!==id);save();domainsModal();render()});break;
+    case'closeModal':closeModal();break;
+    case'tmStart':case'tmPause':case'tmResume':case'tmStop':tmAct(a);break;
+    case'tmDiscard':ask(t('tm.confirmDiscard'),()=>tmAct('tmDiscard'));break;
+    case'askYes':{const f=askCb;askCb=null;$('#confirm').innerHTML='';if(f)f();break}
+    case'askNo':askCb=null;$('#confirm').innerHTML='';break;
+    case'cat':{
+      const w=el;w.classList.remove('bounce');void w.offsetWidth;w.classList.add('bounce');
+      const m=mood(),msg=m==='away'?t('away.homeSay',{name:S.pet.name}):pick(t('say.'+m).split('|'));
+      document.querySelectorAll('.bubble').forEach(b=>b.textContent=msg);break}
+    case'feed':{
+      tick();const f=FOODS.find(x=>x.id===id),p=S.pet;
+      if(p.away)return toast(t('awayNoFeed'));
+      if(p.fullness>=95)return toast(t('full'));
+      if(p.coins<f.cost)return toast(t('nocoin'));
+      p.coins-=f.cost;p.fullness=Math.min(100,p.fullness+f.gain);p.grace=null;p.lastTick=Date.now();S.stats.fed++;
+      toast(t('fed'));burst(['💗','🐟']);after();break}
+    case'buyDecor':{
+      const d=DECOR.find(x=>x.id===id),p=S.pet;
+      if(level(p.xp)<d.lvl)break;
+      if(p.coins<d.cost)return toast(t('nocoin'));
+      p.coins-=d.cost;p.owned.push(id);p.equipped.push(id);after();break}
+    case'equip':{const p=S.pet;p.equipped=p.equipped.includes(id)?p.equipped.filter(x=>x!==id):[...p.equipped,id];save();render();break}
+    case'redeem':{
+      const r=S.rewards.find(x=>x.id===id);if(!r)break;
+      if(S.pet.coins<r.cost)return toast(t('nocoin'));
+      S.pet.coins-=r.cost;S.claims.unshift({name:r.name,cost:r.cost,ts:Date.now()});S.claims=S.claims.slice(0,30);
+      toast(t('rw.done',{x:r.name}));burst(['🎁','✨']);save();render();break}
+    case'delReward':S.rewards=S.rewards.filter(x=>x.id!==id);save();render();break;
+    case'rescue':{
+      const p=S.pet;if(!p.away)break;
+      if(p.awayTasks<RESCUE_TASKS||p.coins<RESCUE_COST)return toast(t('away.need'));
+      p.coins-=RESCUE_COST;p.away=false;p.grace=null;p.fullness=30;p.lastTick=Date.now();p.awayTasks=0;S.stats.rescued++;
+      toast(t('away.back',{name:p.name}));burst(['🐱','💗','✨']);after();break}
+    case'export':{
+      const b=new Blob([JSON.stringify(S,null,2)],{type:'application/json'}),u=URL.createObjectURL(b),l=document.createElement('a');
+      l.href=u;l.download='life-planner-'+todayStr().replace(/-/g,'')+'.json';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);break}
+    case'importPick':$('#imp').click();break;
+    case'sample':{const go=()=>{loadSample();ui.view='home';after()};if(!S.goals.length)go();else ask(t('confirmSample'),go);break}
+    case'clear':ask(t('confirmClear'),()=>{const st=S.settings;S=defaultState();S.settings=st;ui.open={};save();render()});break;
+  }
+});
+function handleForm(f){
+  const k=f.dataset.form;if(!k)return;
+  const d=Object.fromEntries(new FormData(f)),id=f.dataset.id;
+  switch(k){
+    case'addTask':{const title=(d.title||'').trim();if(!title)break;S.tasks.push({id:uid(),goalId:id,title,due:d.due||'',done:false,doneDate:null,rewarded:false,created:Date.now()});ui.open[id]=true;after();break}
+    case'valueSet':{
+      const g=S.goals.find(x=>x.id===id);if(!g)break;
+      const nv=+d.v;if(!isFinite(nv))break;
+      const inc=nv>g.current;g.current=nv;
+      if(inc){const td=todayStr();if(S.stats.valDay!==td)S.stats.valDay=td,S.stats.valCnt=0;if(S.stats.valCnt<5){S.stats.valCnt++;award(5,3);toast(t('valUp'))}}
+      checkGoalDone(id);after();break}
+    case'goalForm':{
+      const title=(d.title||'').trim();
+      if(!title){toast(t('g.needTitle'));break}
+      if(d.mode==='value'&&!(+d.target>0)){toast(t('g.needTarget'));break}
+      if(d.mode==='manual'&&!(+d.manual>=0&&+d.manual<=100)){toast(t('g.manualMax'));break}
+      const base={title,domainId:d.domainId,horizon:d.horizon,due:d.due||'',mode:d.mode,note:(d.note||'').trim(),
+        target:+d.target||0,current:+d.current||0,unit:(d.unit||'').trim(),manual:Math.max(0,Math.min(100,+d.manual||0))};
+      if(id){Object.assign(S.goals.find(x=>x.id===id),base);checkGoalDone(id)}
+      else{const g={id:uid(),created:Date.now(),rewarded:false,...base};S.goals.push(g);g.rewarded=prog(g)>=100&&g.mode!=='tasks';ui.open[g.id]=true}
+      closeModal();after();break}
+    case'dayForm':{
+      const date=f.dataset.date,old=(S.logs[date]||{}).min||0,nm=Math.max(0,Math.min(1440,Math.round(+d.min||0)));
+      S.logs[date]={...(S.logs[date]||{}),min:nm,note:(d.note||'').trim()};
+      if(date===todayStr()&&nm>old){const delta=nm-old;award(Math.floor(delta/10),Math.floor(delta/15))}
+      closeModal();after();break}
+    case'domainSave':{
+      const dm=S.domains.find(x=>x.id===id);if(!dm)break;
+      const nm=(d.name||'').trim();dm.icon=d.icon||dm.icon;dm.color=d.color||dm.color;
+      if(dm.key&&nm===t('dom.'+dm.key))delete dm.name;else dm.name=nm;
+      save();toast(t('saved'));render();break}
+    case'domainNew':{S.domains.push({id:uid(),name:(d.name||'').trim(),icon:d.icon||'⭐',color:d.color||'#e48a45'});save();domainsModal();render();break}
+    case'rewardNew':{const name=(d.name||'').trim();if(!name)break;S.rewards.push({id:uid(),name,cost:Math.max(1,Math.round(+d.cost||1)),icon:d.icon||'🎁'});save();render();break}
+    case'petName':{S.pet.name=(d.n||'').trim()||S.pet.name;save();toast(t('saved'));render();break}
+  }
+}
+document.addEventListener('submit',e=>{if(e.target.dataset&&e.target.dataset.form){e.preventDefault();handleForm(e.target)}});
+document.addEventListener('change',e=>{
+  const el=e.target;if(!el.dataset)return;
+  if(el.dataset.act==='modeSel'){const m=el.value;$('#fVal').classList.toggle('hide',m!=='value');$('#fMan').classList.toggle('hide',m!=='manual');const h=$('#modeHint');if(h)h.textContent=t('g.hint.'+m)}
+  else if(el.dataset.change==='manual'){const g=S.goals.find(x=>x.id===el.dataset.id);if(g){g.manual=+el.value;checkGoalDone(g.id);after()}}
+  else if(el.dataset.change==='tmSubj'){
+    const T=S.timer,nv=el.value;
+    if(T.state==='idle'){T.subj=nv;save();render()}
+    else{const was=T.state,ms=tmElapsed(),old=T.subj;S.timer={state:was==='run'?'run':'idle',since:Date.now(),acc:0,subj:nv};commitStudy(ms,old);after()}
+  }
+  else if(el.dataset.change==='tmWake'){S.settings.keepAwake=el.checked;save();syncWake()}
+  else if(el.dataset.change==='import'){
+    const file=el.files&&el.files[0];if(!file)return;
+    const r=new FileReader();
+    r.onload=()=>{
+      try{
+        const o=JSON.parse(r.result);
+        if(!o||!Array.isArray(o.goals)||!Array.isArray(o.tasks)||!Array.isArray(o.domains))throw 0;
+        ask(t('confirmImport'),()=>{S=migrate(o);ui.open={};save();render();toast(t('imported'))});
+      }catch(err){toast(t('importErr'))}
+    };
+    r.readAsText(file);el.value='';
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){if($('#confirm').innerHTML){askCb=null;$('#confirm').innerHTML=''}else closeModal();return}
+  if(e.key==='Enter'&&!e.isComposing&&e.keyCode!==229){
+    const el=e.target;
+    if(el&&el.tagName==='INPUT'&&el.type!=='button'&&el.form&&el.form.dataset.form){e.preventDefault();handleForm(el.form)}
+  }
+});
+document.addEventListener('visibilitychange',()=>{syncWake();if(!document.hidden)refresh()});
+function refresh(){
+  tick();save();
+  const a=document.activeElement;
+  if(!$('#modal').innerHTML&&!(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)))render();
+}
+setInterval(refresh,60000);
+
+applyTheme();render();checkAch();save();
+</script>
+</body>
+</html>
